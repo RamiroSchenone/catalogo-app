@@ -1,0 +1,27 @@
+[
+  {
+    "nombre": "Usuarios",
+    "icon": "group",
+    "redirectTo": ""
+  },
+  {
+    "nombre": "Marcas",
+    "icon": "diamond",
+    "redirectTo": ""
+  },
+  {
+    "nombre": "Catálogo",
+    "icon": "shopping_bag",
+    "redirectTo": ""
+  },
+  {
+    "nombre": "Carrito",
+    "icon": "shopping_cart",
+    "redirectTo": ""
+  },
+  {
+    "nombre": "Cerrar sesión",
+    "icon": "logout",
+    "redirectTo": ""
+  }
+]
