@@ -1,26 +1,31 @@
 [
   {
-    "nombre": "Usuarios",
+    "nombre": "Usuario",
+    "label": "Usuarios",
     "icon": "group",
-    "redirectTo": ""
+    "redirectTo": "usuarios"
   },
   {
-    "nombre": "Marcas",
+    "nombre": "Marca",
+    "label": "Marcas",
     "icon": "diamond",
-    "redirectTo": ""
+    "redirectTo": "marcas"
   },
   {
-    "nombre": "Catálogo",
+    "nombre": "Catalogo",
+    "label": "Catálogo",
     "icon": "shopping_bag",
-    "redirectTo": ""
+    "redirectTo": "catalogo"
   },
   {
     "nombre": "Carrito",
+    "label": "Carrito",
     "icon": "shopping_cart",
-    "redirectTo": ""
+    "redirectTo": "carrito"
   },
   {
-    "nombre": "Cerrar sesión",
+    "nombre": "Logout",
+    "label": "Cerrar sesión",
     "icon": "logout",
     "redirectTo": ""
   }

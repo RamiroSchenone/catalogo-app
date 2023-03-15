@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './components/shared/shared.module';
-import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, CatalogoComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

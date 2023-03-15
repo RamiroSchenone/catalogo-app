@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CatalogoComponent } from './components/catalogo/catalogo.component';
 
 const routes: Routes = [
-  { path: 'catalogo', component: CatalogoComponent },
   {
     path: 'dashboard',
     loadChildren: () =>
@@ -11,8 +9,9 @@ const routes: Routes = [
         (m) => m.DashboardModule
       ),
   },
-  { path: '', pathMatch: 'full', redirectTo: 'catalogo' },
-  { path: '**', pathMatch: 'full', redirectTo: 'catalogo' },
+
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },
 ];
 
 @NgModule({
