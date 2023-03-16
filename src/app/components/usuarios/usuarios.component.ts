@@ -7,13 +7,16 @@ import { ColumnTable } from 'src/app/models/column-table.model';
   styleUrls: ['./usuarios.component.scss'],
 })
 export class UsuariosComponent implements OnInit {
-  test: ColumnTable[];
-  test2: any;
+  columns: ColumnTable[];
+  data: any;
+  title: string;
+  opcionesPaginacion: number[] = [2, 5, 10, 25];
 
   constructor() {}
 
   ngOnInit(): void {
-    this.test = [
+    this.title = 'Usuarios';
+    this.columns = [
       {
         name: 'id',
         property: 'id',
@@ -120,6 +123,6 @@ export class UsuariosComponent implements OnInit {
         telefono: '3411111111',
       },
     ];
-    this.test2 = data;
+    this.data = data;
   }
 }

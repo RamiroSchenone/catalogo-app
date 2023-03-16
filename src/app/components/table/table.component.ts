@@ -22,9 +22,10 @@ export class TableComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   @Input() data: any;
-
   @Input() columns: ColumnTable[];
   @Input() title: string;
+  @Input() showColumnAction?: boolean = false;
+  @Input() opcionesPaginacion: number[] = [5];
 
   columnsName: string[];
 
@@ -32,6 +33,9 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.columnsName = this.columns.map((column) => column.name);
+    if (this.showColumnAction) {
+      this.columnsName.push('acciones');
+    }
     this.dataSource = new MatTableDataSource(this.data);
     this.cdr.detectChanges();
   }
@@ -39,6 +43,7 @@ export class TableComponent implements OnInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator._intl.itemsPerPageLabel = "Items por página";
   }
 
   applyFilter(event: Event) {
@@ -48,5 +53,15 @@ export class TableComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  see(entity: any) {
+    console.log('Ver');
+    console.log(entity);
+  }
+
+  delete(entity: any) {
+    console.log('Eliminar');
+    console.log(entity);
   }
 }
