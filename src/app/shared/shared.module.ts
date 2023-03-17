@@ -13,7 +13,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatChipsModule} from '@angular/material/chips'
+
 import { TableComponent } from '../components/table/table.component';
+
 @NgModule({
   declarations: [
     TableComponent
@@ -33,6 +36,7 @@ import { TableComponent } from '../components/table/table.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatChipsModule
   ],
   exports: [
     //Angular material
@@ -46,6 +50,7 @@ import { TableComponent } from '../components/table/table.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatChipsModule,
 
     //Componentes compartidos
     TableComponent

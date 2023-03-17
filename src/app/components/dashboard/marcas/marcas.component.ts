@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ColumnTable } from 'src/app/models/column-table.model';
+import { Marca } from 'src/app/models/marca.model';
 
 @Component({
   selector: 'app-marcas',
   templateUrl: './marcas.component.html',
-  styleUrls: ['./marcas.component.scss']
+  styleUrls: ['./marcas.component.scss'],
 })
 export class MarcasComponent implements OnInit {
   columns: ColumnTable[];
-  data: any;
+  data: Marca[];
   title: string;
   opcionesPaginacion: number[] = [2, 5, 10, 25];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.title = 'Marcas';
@@ -37,23 +38,23 @@ export class MarcasComponent implements OnInit {
       {
         id: 1,
         nombre: 'Chimola',
-        productLength: 5
+        productLength: 5,
       },
       {
-        id:2,
+        id: 2,
         nombre: 'Trendy',
-        productLength: 1
+        productLength: 1,
       },
       {
         id: 3,
         nombre: 'Amayra',
-        productLength: 15
+        productLength: 15,
       },
       {
         id: 4,
         nombre: 'Sarkany',
-        productLength: 20
-      }
+        productLength: 20,
+      },
     ];
   }
 }
