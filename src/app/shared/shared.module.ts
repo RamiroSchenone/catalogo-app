@@ -13,14 +13,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import {MatChipsModule} from '@angular/material/chips'
+import { MatChipsModule } from '@angular/material/chips';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { TableComponent } from '../components/table/table.component';
 
 @NgModule({
-  declarations: [
-    TableComponent
-  ],
+  declarations: [TableComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -36,7 +35,8 @@ import { TableComponent } from '../components/table/table.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatChipsModule
+    MatChipsModule,
+    MatGridListModule,
   ],
   exports: [
     //Angular material
@@ -51,9 +51,10 @@ import { TableComponent } from '../components/table/table.component';
     MatPaginatorModule,
     MatSortModule,
     MatChipsModule,
+    MatGridListModule,
 
     //Componentes compartidos
-    TableComponent
+    TableComponent,
   ],
 })
 export class SharedModule {}

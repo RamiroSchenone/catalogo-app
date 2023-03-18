@@ -36,5 +36,138 @@
       "ancho": 20,
       "profundidad": 30
     }
+  },
+  {
+    "id": 2,
+    "nombre": "Bandolera",
+    "descripcion": "La mejor bandolera",
+    "disponible": false,
+    "imageURL": "https://i.ibb.co/K9m5pr8/bag-test.jpg",
+    "marca": {
+      "id": 2,
+      "nombre": "Trendy",
+      "productLength": 1
+    },
+    "marcaId": 2,
+    "precio": 10000,
+    "medidas": {
+      "alto": 10,
+      "ancho": 20,
+      "profundidad": 30
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Bandolera",
+    "descripcion": "La mejor bandolera",
+    "disponible": false,
+    "imageURL": "https://i.ibb.co/K9m5pr8/bag-test.jpg",
+    "marca": {
+      "id": 2,
+      "nombre": "Trendy",
+      "productLength": 1
+    },
+    "marcaId": 2,
+    "precio": 10000,
+    "medidas": {
+      "alto": 10,
+      "ancho": 20,
+      "profundidad": 30
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Bandolera",
+    "descripcion": "La mejor bandolera",
+    "disponible": false,
+    "imageURL": "https://i.ibb.co/K9m5pr8/bag-test.jpg",
+    "marca": {
+      "id": 2,
+      "nombre": "Trendy",
+      "productLength": 1
+    },
+    "marcaId": 2,
+    "precio": 10000,
+    "medidas": {
+      "alto": 10,
+      "ancho": 20,
+      "profundidad": 30
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Bandolera",
+    "descripcion": "La mejor bandolera",
+    "disponible": false,
+    "imageURL": "https://i.ibb.co/K9m5pr8/bag-test.jpg",
+    "marca": {
+      "id": 2,
+      "nombre": "Trendy",
+      "productLength": 1
+    },
+    "marcaId": 2,
+    "precio": 10000,
+    "medidas": {
+      "alto": 10,
+      "ancho": 20,
+      "profundidad": 30
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Bandolera",
+    "descripcion": "La mejor bandolera",
+    "disponible": false,
+    "imageURL": "https://i.ibb.co/K9m5pr8/bag-test.jpg",
+    "marca": {
+      "id": 2,
+      "nombre": "Trendy",
+      "productLength": 1
+    },
+    "marcaId": 2,
+    "precio": 10000,
+    "medidas": {
+      "alto": 10,
+      "ancho": 20,
+      "profundidad": 30
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Bandolera",
+    "descripcion": "La mejor bandolera",
+    "disponible": false,
+    "imageURL": "https://i.ibb.co/K9m5pr8/bag-test.jpg",
+    "marca": {
+      "id": 2,
+      "nombre": "Trendy",
+      "productLength": 1
+    },
+    "marcaId": 2,
+    "precio": 10000,
+    "medidas": {
+      "alto": 10,
+      "ancho": 20,
+      "profundidad": 30
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Bandolera",
+    "descripcion": "La mejor bandolera",
+    "disponible": false,
+    "imageURL": "https://i.ibb.co/K9m5pr8/bag-test.jpg",
+    "marca": {
+      "id": 2,
+      "nombre": "Trendy",
+      "productLength": 1
+    },
+    "marcaId": 2,
+    "precio": 10000,
+    "medidas": {
+      "alto": 10,
+      "ancho": 20,
+      "profundidad": 30
+    }
   }
 ]

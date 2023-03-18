@@ -1,10 +1,17 @@
 <mat-card class="example-card">
-  <img
-    mat-card-image
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-  />
-  <mat-card-content> asd </mat-card-content>
-  <mat-card-actions class="card-actions">
+  <div
+    class="img-container"
+    (mouseover)="fnShowHoverImage()"
+    (mouseout)="fnHideHoverImage()"
+  >
+    <img (click)="verProducto(this.producto)" mat-card-image src="https://i.ibb.co/K9m5pr8/bag-test.jpg" />
+    <div *ngIf="showHoverImage" class="hover-image">
+      <mat-icon>visibility</mat-icon>
+    </div>
+  </div>
+
+  <mat-card-title
+    >Cartera
     <mat-chip-list>
       <mat-chip class="chip">
         <mat-chip-avatar class="chip-avatar">
@@ -15,8 +22,34 @@
         Disponible
       </mat-chip>
     </mat-chip-list>
-    <button class="btn-add-cart" mat-button>
-      <mat-icon>shopping_cart</mat-icon> Agregar al carrito
-    </button>
+  </mat-card-title>
+  <mat-card-subtitle>Chimola</mat-card-subtitle>
+  <mat-card-content>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus, eos.
+      <br />
+      <br />
+      Medidas: 20x10x30
+      <br />
+      <span style="font-size: 10px; color: gray"
+        ><em>(alto x ancho x profundidad)</em></span
+      >
+    </p>
+    <!-- <div class="alert alert-primary" role="alert">
+      A simple primary alert—check it out!
+    </div> -->
+  </mat-card-content>
+  <mat-card-actions class="card-actions">
+    <span class="product-price"><b>AR$</b> 2000</span>
+    <mat-chip-list (click)="addToCart(producto)">
+      <mat-chip class="chip btn-add-cart">
+        <mat-chip-avatar class="chip-avatar">
+          <mat-icon>
+            <span class="material-symbols-outlined"> add_shopping_cart </span>
+          </mat-icon>
+        </mat-chip-avatar>
+        Añadir
+      </mat-chip>
+    </mat-chip-list>
   </mat-card-actions>
 </mat-card>
