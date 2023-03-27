@@ -4,8 +4,25 @@
   </div>
 </div>
 
+<div class="filter-container">
+  <mat-form-field class="mt-1">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input />
+  </mat-form-field>
+
+  <mat-icon matTooltip="Filtrar">
+    <span class="material-symbols-outlined"> filter_list </span>
+  </mat-icon>
+</div>
+
+<ng-container *ngIf="productosFilteredEmpty">
+  <p class="text-center mt-3">
+    No se pudieron encontrar coincidencias con '{{ criteria }}'
+  </p>
+</ng-container>
+
 <mat-grid-list cols="4" rowHeight="600">
-  <mat-grid-tile *ngFor="let producto of productos">
+  <mat-grid-tile *ngFor="let producto of productosFiltered">
     <app-producto-card [producto]="producto"></app-producto-card>
   </mat-grid-tile>
 </mat-grid-list>

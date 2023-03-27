@@ -16,3 +16,24 @@ body {
   --color-terciary: #ff9dc6;
   --color-contrast: #000000;
 }
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color-secondary);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-terciary);
+}

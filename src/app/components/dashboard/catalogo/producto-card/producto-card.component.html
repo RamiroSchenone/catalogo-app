@@ -1,35 +1,42 @@
-<mat-card class="example-card">
-  <div
-    class="img-container"
-    (mouseover)="fnShowHoverImage()"
-    (mouseout)="fnHideHoverImage()"
-  >
-    <img (click)="verProducto(this.producto)" mat-card-image src="https://i.ibb.co/K9m5pr8/bag-test.jpg" />
+<mat-card class="example-card" (mouseout)="fnHideHoverImage()">
+  <div class="img-container" (mouseover)="fnShowHoverImage()">
+    <img
+      (click)="verProducto(this.producto)"
+      mat-card-image
+      [src]="producto.imageURL"
+    />
     <div *ngIf="showHoverImage" class="hover-image">
       <mat-icon>visibility</mat-icon>
     </div>
   </div>
 
   <mat-card-title
-    >Cartera
+    >{{ producto.nombre }}
     <mat-chip-list>
-      <mat-chip class="chip">
+      <mat-chip
+        [ngClass]="{
+          available: producto.disponible,
+          'sold-out': !producto.disponible,
+          chip: true
+        }"
+      >
         <mat-chip-avatar class="chip-avatar">
           <mat-icon>
             <span class="material-symbols-outlined"> task_alt </span>
           </mat-icon>
         </mat-chip-avatar>
-        Disponible
+        {{ producto.disponible ? "Disponible" : "Agotado" }}
       </mat-chip>
     </mat-chip-list>
   </mat-card-title>
   <mat-card-subtitle>Chimola</mat-card-subtitle>
   <mat-card-content>
     <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus, eos.
+      {{ producto.descripcion }}
       <br />
       <br />
-      Medidas: 20x10x30
+      Medidas: {{ producto.medidas.alto }} x {{ producto.medidas.ancho }} x
+      {{ producto.medidas.profundidad }}
       <br />
       <span style="font-size: 10px; color: gray"
         ><em>(alto x ancho x profundidad)</em></span
@@ -40,7 +47,7 @@
     </div> -->
   </mat-card-content>
   <mat-card-actions class="card-actions">
-    <span class="product-price"><b>AR$</b> 2000</span>
+    <span class="product-price"><b>AR$</b> {{ producto.precio }}</span>
     <mat-chip-list (click)="addToCart(producto)">
       <mat-chip class="chip btn-add-cart">
         <mat-chip-avatar class="chip-avatar">

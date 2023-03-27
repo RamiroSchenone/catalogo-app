@@ -3,6 +3,18 @@
   gap: 30px;
 }
 
+.filter-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  mat-icon{
+    cursor: pointer;
+    color: var(--color-primary);
+  }
+}
+
 .slide-in-bottom {
 	-webkit-animation: slide-in-bottom 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: slide-in-bottom 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;

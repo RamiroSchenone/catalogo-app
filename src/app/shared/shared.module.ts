@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { TableComponent } from '../components/table/table.component';
 
@@ -37,6 +38,7 @@ import { TableComponent } from '../components/table/table.component';
     MatSortModule,
     MatChipsModule,
     MatGridListModule,
+    MatDialogModule,
   ],
   exports: [
     //Angular material
@@ -52,6 +54,7 @@ import { TableComponent } from '../components/table/table.component';
     MatSortModule,
     MatChipsModule,
     MatGridListModule,
+    MatDialogModule,
 
     //Componentes compartidos
     TableComponent,
