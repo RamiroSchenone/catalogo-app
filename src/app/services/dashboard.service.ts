@@ -2,17 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MenuItem } from '../models/menu-item.model';
+import { BaseService } from './base.service';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class DashboardService {
+export class DashboardService extends BaseService<MenuItem> {
+  constructor(http: HttpClient, router: Router) {
+    super(http, 'Dashboard', router);
+  }
 
-  constructor(
-    private http: HttpClient
-  ) { }
 
-  getDashboard(): Observable<MenuItem[]>{
-    return this.http.get<MenuItem[]>('./assets/data/dashboard.json')
+  getDashboard(): Observable<MenuItem[]> {
+    return this.http.get<MenuItem[]>('./assets/data/dashboard.json');
   }
 }

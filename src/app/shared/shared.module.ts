@@ -16,6 +16,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatListModule } from '@angular/material/list'; 
+
 
 import { TableComponent } from '../components/table/table.component';
 
@@ -39,6 +43,9 @@ import { TableComponent } from '../components/table/table.component';
     MatChipsModule,
     MatGridListModule,
     MatDialogModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatListModule
   ],
   exports: [
     //Angular material
@@ -55,6 +62,9 @@ import { TableComponent } from '../components/table/table.component';
     MatChipsModule,
     MatGridListModule,
     MatDialogModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatListModule,
 
     //Componentes compartidos
     TableComponent,
