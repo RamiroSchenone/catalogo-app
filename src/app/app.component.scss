@@ -42,9 +42,23 @@
   width: 100%;
   position: relative;
 
-  .logout{
+  .logout {
     position: absolute;
     bottom: 20px;
+  }
+}
+
+.mat-list-base {
+  padding-top: 20px;
+}
+
+.mat-toolbar {
+  justify-content: space-between;
+  padding: 0 40px;
+  background-color: var(--color-secondary);
+
+  img {
+    width: 90px;
   }
 }
 
@@ -52,9 +66,8 @@
   .mat-list-item-content {
     gap: 10px;
   }
-}
 
-.mat-toolbar {
-  justify-content: end;
-  background-color: var(--color-secondary);
+  .mat-badge-content{
+    background-color: var(--color-primary);
+  }
 }

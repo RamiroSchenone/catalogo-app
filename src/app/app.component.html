@@ -1,8 +1,15 @@
 <div [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar>
-    <button mat-icon-button (click)="snav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
+    <img src="https://i.ibb.co/GRmQRbX/logo.png" alt="logo accesorios ab" />
+
+    <div class="toolbar-controls">
+      <button mat-icon-button>
+        <mat-icon matBadge="1">shopping_cart</mat-icon>
+      </button>
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
   </mat-toolbar>
 
   <mat-sidenav-container
@@ -11,14 +18,19 @@
   >
     <mat-sidenav #snav [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
-        <a mat-list-item routerLink="." *ngFor="let menu of menuItems" [class]="menu.nombre">
+        <a
+          mat-list-item
+          routerLink="dashboard/{{ menu.redirectTo }}"
+          *ngFor="let menu of menuItems"
+          [class]="menu.nombre"
+        >
           <mat-icon>{{ menu.icon }}</mat-icon>
           {{ menu.label }}</a
         >
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content>
+    <mat-sidenav-content style="height: calc(100vh - 64px)">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

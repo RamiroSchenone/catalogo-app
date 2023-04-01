@@ -19,7 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatListModule } from '@angular/material/list'; 
-
+import { MatBadgeModule } from '@angular/material/badge'; 
 
 import { TableComponent } from '../components/table/table.component';
 
@@ -45,7 +45,8 @@ import { TableComponent } from '../components/table/table.component';
     MatDialogModule,
     MatSidenavModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatBadgeModule
   ],
   exports: [
     //Angular material
@@ -65,6 +66,7 @@ import { TableComponent } from '../components/table/table.component';
     MatSidenavModule,
     MatSelectModule,
     MatListModule,
+    MatBadgeModule,
 
     //Componentes compartidos
     TableComponent,
