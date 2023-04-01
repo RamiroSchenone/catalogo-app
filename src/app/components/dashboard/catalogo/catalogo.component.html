@@ -8,7 +8,7 @@
   <div class="filter-container">
     <mat-form-field class="mt-1">
       <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" #input />
+      <input matInput (keyup)="search($event)" #input />
     </mat-form-field>
   
     <mat-icon matTooltip="Filtrar">
@@ -23,7 +23,7 @@
   </ng-container>
   
   <mat-grid-list cols="4" rowHeight="600">
-    <mat-grid-tile *ngFor="let producto of productosFiltered">
+    <mat-grid-tile *ngFor="let producto of productos">
       <app-producto-card [producto]="producto"></app-producto-card>
     </mat-grid-tile>
   </mat-grid-list>

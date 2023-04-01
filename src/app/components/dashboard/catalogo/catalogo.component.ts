@@ -8,7 +8,6 @@ import { ProductoService } from 'src/app/services/producto.service';
   styleUrls: ['./catalogo.component.scss'],
 })
 export class CatalogoComponent implements OnInit {
-  productosFiltered: Producto[];
   productos: Producto[];
   productosFilteredEmpty: boolean = false;
   criteria: string = '';
@@ -16,28 +15,30 @@ export class CatalogoComponent implements OnInit {
   constructor(private productoService: ProductoService) {}
 
   ngOnInit(): void {
-    this.productoService.getProductos().subscribe((res) => {
+    this.getProductos();
+  }
+
+  getProductos() {
+    this.productoService.getAll().subscribe((res) => {
       this.productos = res;
-      this.productosFiltered = res;
     });
   }
 
-  applyFilter(event: Event) {
+  search(event: Event) {
     this.criteria = (event.target as HTMLInputElement).value;
-    this.productosFiltered = this.productos.filter((item) =>
-      item['nombre']
-        .toString()
-        .toLowerCase()
-        .includes(this.criteria.toLowerCase())
-    );
 
     if (this.criteria == null || this.criteria == '') {
-      this.productosFiltered = this.productos;
       this.productosFilteredEmpty = false;
+      this.getProductos();
     }
 
-    if(this.productosFiltered.length == 0) {
-      this.productosFilteredEmpty = true;
-    }
+    this.productoService.search(this.criteria).subscribe((res) => {
+      this.productosFilteredEmpty = false;
+      this.productos = res;
+
+      if (this.productos.length == 0) {
+        this.productosFilteredEmpty = true;
+      }
+    });
   }
 }
