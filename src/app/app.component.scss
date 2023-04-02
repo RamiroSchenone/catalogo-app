@@ -41,6 +41,7 @@
   height: 100%;
   width: 100%;
   position: relative;
+  background-color: var(--color-secondary);
 
   .logout {
     position: absolute;
@@ -65,6 +66,7 @@
 ::ng-deep {
   .mat-list-item-content {
     gap: 10px;
+    padding: 0 16px 0 36px !important;
   }
 
   .mat-badge-content{
