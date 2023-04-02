@@ -1,4 +1,4 @@
-@import './theme.scss';
+@import "./theme.scss";
 
 html,
 body {
@@ -6,7 +6,7 @@ body {
 }
 body {
   margin: 0;
-  background-color: #FCFAFA;
+  background-color: #fcfafa;
 }
 
 :root {
@@ -35,4 +35,41 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-terciary);
+}
+
+.mat-spinner {
+  width: 100% !important;
+  margin-top: 250px;
+  svg {
+    width: 100% !important;
+    margin: auto;
+    circle {
+      stroke: var(--color-primary);
+    }
+  }
+}
+
+.error-message {
+  background-color: #eecece;
+  color: #861414;
+  button {
+    .mat-button-wrapper {
+      color: #861414;
+    }
+  }
+}
+
+.success-message {
+  background-color: #d8eece;
+  color: #388614;
+
+  button {
+    .mat-button-wrapper {
+      color: #388614;
+    }
+  }
+}
+
+.mat-simple-snackbar {
+  font-size: 15px;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/models/producto.model';
+import { NotificationService } from 'src/app/services/notificaciones.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
@@ -11,17 +12,31 @@ export class CatalogoComponent implements OnInit {
   productos: Producto[];
   productosFilteredEmpty: boolean = false;
   criteria: string = '';
+  showSpinner: boolean = false;
+  productosLength: number = 0;
 
-  constructor(private productoService: ProductoService) {}
+  constructor(
+    private productoService: ProductoService,
+    private notifactionService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.getProductos();
   }
 
   getProductos() {
-    this.productoService.getAll().subscribe((res) => {
-      this.productos = res;
-    });
+    this.showSpinner = true;
+    this.productoService.getAll().subscribe(
+      (res) => {
+        this.productos = res;
+        this.productosLength = res.length;
+        this.showSpinner = false;
+      },
+      (error) => {
+        this.notifactionService.showErrorMessage(error.message);
+        this.showSpinner = false;
+      }
+    );
   }
 
   search(event: Event) {

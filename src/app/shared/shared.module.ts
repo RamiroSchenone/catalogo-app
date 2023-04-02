@@ -17,9 +17,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSelectModule } from '@angular/material/select'; 
-import { MatListModule } from '@angular/material/list'; 
-import { MatBadgeModule } from '@angular/material/badge'; 
+import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { TableComponent } from '../components/table/table.component';
 
@@ -46,7 +48,9 @@ import { TableComponent } from '../components/table/table.component';
     MatSidenavModule,
     MatSelectModule,
     MatListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
   exports: [
     //Angular material
@@ -67,6 +71,8 @@ import { TableComponent } from '../components/table/table.component';
     MatSelectModule,
     MatListModule,
     MatBadgeModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
 
     //Componentes compartidos
     TableComponent,
