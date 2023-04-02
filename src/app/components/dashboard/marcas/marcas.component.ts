@@ -26,7 +26,7 @@ export class MarcasComponent implements OnInit {
       {
         name: 'nombre',
         property: 'nombre',
-        label: 'nombre',
+        label: 'Nombre',
       },
       {
         name: 'productLength',

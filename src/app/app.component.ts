@@ -2,6 +2,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { MenuService } from './services/menu.service';
 import { MenuItem } from './models/menu-item.model';
+import { NotificationService } from './services/notificaciones.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private notifacationService: NotificationService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -27,7 +29,12 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.menuService.getAll().subscribe((data) => this.menuItems = data);
+    this.menuService.getAll().subscribe(
+      (data) => (this.menuItems = data),
+      (error) => {
+        this.notifacationService.showErrorMessage(error.message);
+      }
+    );
   }
 
   ngOnDestroy(): void {

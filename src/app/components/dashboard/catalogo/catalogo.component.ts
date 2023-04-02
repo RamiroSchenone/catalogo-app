@@ -47,13 +47,18 @@ export class CatalogoComponent implements OnInit {
       this.getProductos();
     }
 
-    this.productoService.search(this.criteria).subscribe((res) => {
-      this.productosFilteredEmpty = false;
-      this.productos = res;
+    this.productoService.search(this.criteria).subscribe(
+      (res) => {
+        this.productosFilteredEmpty = false;
+        this.productos = res;
 
-      if (this.productos.length == 0) {
-        this.productosFilteredEmpty = true;
+        if (this.productos.length == 0) {
+          this.productosFilteredEmpty = true;
+        }
+      },
+      (error) => {
+        this.notifactionService.showErrorMessage(error.message);
       }
-    });
+    );
   }
 }
