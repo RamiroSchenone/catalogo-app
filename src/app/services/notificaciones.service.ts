@@ -16,7 +16,7 @@ export class NotificationService {
   constructor(private snackBar: MatSnackBar) {}
   showSuccessMessage(message: string) {
     this.snackBar.open(message, this.actionLabel, {
-      duration: 3000,
+      duration: 5000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       panelClass: 'success-message',

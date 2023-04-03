@@ -16,7 +16,7 @@ export class BaseService<T> {
   constructor(
     protected http: HttpClient,
     @Inject(ENTITY_NAME) protected entityName: string,
-    protected router: Router,
+    protected router: Router
   ) {}
 
   getHttpHeaders() {
@@ -44,19 +44,32 @@ export class BaseService<T> {
       .pipe(catchError(this.responseHandler.bind(this)));
   }
 
-  // update(entity: T): Observable<any> {
-  //   const authToken = 'miTokenDeAutenticacion';
-  //   const httpHeaders = {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${authToken}`
-  //   };
-  //   const headers = httpHeaders;
-  //   return this.http
-  //     .post(this.API_URL + '/update', entity, {
-  //       headers: headers,
-  //     })
-  //     .pipe(catchError(this.responseHandler.bind(this)));
-  // }
+  post(entity: T): Observable<any> {
+    const headers = this.getHttpHeaders();
+    return this.http
+      .post(this.API_URL + this.entityName, entity, {
+        headers: headers,
+      })
+      .pipe(catchError(this.responseHandler.bind(this)));
+  }
+
+  update(entity: T): Observable<any> {
+    const headers = this.getHttpHeaders();
+    const url = `${this.API_URL}${this.entityName}/update`;
+    return this.http
+      .post(url, entity, {
+        headers: headers,
+      })
+      .pipe(catchError(this.responseHandler.bind(this)));
+  }
+
+  delete(id: number): Observable<any> {
+    const headers = this.getHttpHeaders();
+    const url = `${this.API_URL}${this.entityName}/${id}`;
+    return this.http
+      .delete<any>(url, { headers })
+      .pipe(catchError(this.responseHandler.bind(this)));
+  }
 
   // find(query: any): Observable<any> {
   //   // faltan los headers
@@ -78,25 +91,6 @@ export class BaseService<T> {
   // 	let url = this.getBaseApiUrl();
   // 	return this.http
   // 		.get<T>(url + `/${Id}`, { headers })
-  // 		.pipe(catchError(this.responseHandler.bind(this)));
-  // }
-
-  // delete(id: any): Observable<any> {
-  // 	const httpHeaders = this.httpUtils.getHTTPHeaders();
-  // 	const headers = httpHeaders;
-  // 	const url = `${this.getBaseApiUrl()}/${id}`;
-  // 	return this.http
-  // 		.delete<any>(url, { headers })
-  // 		.pipe(catchError(this.responseHandler.bind(this)));
-  // }
-
-  // post(url: string = '', entity: T): Observable<any> {
-  // 	const httpHeaders = this.httpUtils.getHTTPHeaders();
-  // 	const headers = httpHeaders;
-  // 	return this.http
-  // 		.post(this.getBaseApiUrl() + url, entity, {
-  // 			headers: headers,
-  // 		})
   // 		.pipe(catchError(this.responseHandler.bind(this)));
   // }
 

@@ -24,12 +24,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { TableComponent } from '../components/table/table.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [TableComponent],
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     //Angular material
     MatToolbarModule,
@@ -53,6 +56,9 @@ import { TableComponent } from '../components/table/table.component';
     MatSnackBarModule,
   ],
   exports: [
+    FormsModule,
+    ReactiveFormsModule,
+
     //Angular material
     MatToolbarModule,
     MatIconModule,

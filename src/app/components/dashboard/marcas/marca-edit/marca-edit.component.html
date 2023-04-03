@@ -1,0 +1,30 @@
+<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h2 style="font-weight: 400">{{ title }}</h2>
+  <div class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Nombre" formControlName="nombre" />
+      <mat-icon matSuffix>diamond</mat-icon>
+      <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="button-wrapper">
+    <button
+      type="button"
+      mat-raised-button
+      (click)="onCancel()"
+      matTooltip="Cancelar"
+    >
+      Cancelar
+    </button>
+    <button
+      type="submit"
+      color="primary"
+      mat-raised-button
+      [disabled]="formGroup.status == 'INVALID'"
+      matTooltip="Guardar"
+    >
+      Guardar
+    </button>
+  </div>
+</form>

@@ -9,6 +9,7 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { CatalogoComponent } from './catalogo/catalogo.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ProductoCardComponent } from './catalogo/producto-card/producto-card.component';
+import { MarcaEditComponent } from './marcas/marca-edit/marca-edit.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ProductoCardComponent } from './catalogo/producto-card/producto-card.co
     CarritoComponent,
     CatalogoComponent,
     UsuariosComponent,
-    ProductoCardComponent
+    ProductoCardComponent,
+    MarcaEditComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,18 @@
 <div class="slide-in-bottom mt-5 mb-5">
-  <div style="color: var(--color-primary)">
-    <h1>{{ title }}</h1>
+  <div class="top-wrapper">
+    <div class="mat-primary">
+      <h1>{{ title }}</h1>
+    </div>
+
+    <button
+      type="button"
+      color="primary"
+      (click)="new()"
+      mat-raised-button
+      matTooltip="Crear {{ entity }}"
+    >
+      + {{ entity }}
+    </button>
   </div>
 
   <mat-form-field class="mt-1">
@@ -13,7 +25,12 @@
       <!-- Agregar una columna por cada columna recibida en el input -->
       <ng-container *ngFor="let column of columns">
         <ng-container [matColumnDef]="column.name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <th
+            class="mat-primary"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
             {{ column.label }}
           </th>
           <td mat-cell *matCellDef="let element" [class]="column.name">
@@ -25,16 +42,21 @@
       <ng-container *ngIf="showColumnAction" matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" class="acciones">
-          <mat-icon (click)="see(element)" matTooltip="Ver Usuario"
+          <mat-icon
+            (click)="edit(element)"
+            color="primary"
+            matTooltip="Ver {{ entity }}"
             >visibility</mat-icon
           >
-          <mat-icon (click)="delete(element)" matTooltip="Eliminar Usuario"
+          <mat-icon
+            (click)="delete(element)"
+            color="primary"
+            matTooltip="Eliminar {{ entity }}"
             >delete</mat-icon
           >
         </td>
       </ng-container>
 
-      <!-- Agregar la fila de paginación -->
       <tr mat-header-row *matHeaderRowDef="columnsName"></tr>
       <tr mat-row *matRowDef="let row; columns: columnsName"></tr>
 
@@ -45,8 +67,6 @@
       </tr>
     </table>
 
-    <mat-paginator
-      [pageSizeOptions]="opcionesPaginacion"
-    ></mat-paginator>
+    <mat-paginator [pageSizeOptions]="opcionesPaginacion"></mat-paginator>
   </div>
 </div>

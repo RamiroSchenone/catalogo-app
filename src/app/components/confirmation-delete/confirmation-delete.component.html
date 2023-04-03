@@ -1,0 +1,23 @@
+<div>
+    <h2>¿Está seguro de que desea eliminar este registro?</h2>
+    <mat-label>Una vez eliminado, no hay vuelta atras.</mat-label>
+    <div class="button-wrapper">
+        <button
+          type="button"
+          mat-raised-button
+          (click)="onCancel()"
+          matTooltip="Cancelar"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          color="primary"
+          (click)="onDelete()"
+          mat-raised-button
+          matTooltip="Guardar"
+        >
+          Eliminar
+        </button>
+      </div>
+</div>

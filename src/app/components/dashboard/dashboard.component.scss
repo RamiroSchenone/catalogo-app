@@ -9,8 +9,6 @@
     height: 200px;
     width: 200px;
     border-radius: 20px;
-    color: var(--color-primary);
-    background-color: var(--color-secondary);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -31,9 +29,6 @@
     }
   }
   .dashboard-card:hover {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-
     -webkit-animation: slide-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     animation: slide-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }

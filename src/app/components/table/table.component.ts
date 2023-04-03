@@ -1,8 +1,10 @@
 import {
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,18 +18,22 @@ import { ColumnTable } from 'src/app/models/column-table.model';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
+  dataSource: MatTableDataSource<any>;
+  columnsName: string[];
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  dataSource: MatTableDataSource<any>;
-
-  @Input() data: any;
+  @Input() data?: any;
   @Input() columns: ColumnTable[];
   @Input() title: string;
+  @Input() entity: string;
   @Input() showColumnAction?: boolean = false;
   @Input() opcionesPaginacion: number[] = [5];
 
-  columnsName: string[];
+  @Output() editItem: EventEmitter<any> = new EventEmitter();
+  @Output() newItem: EventEmitter<any> = new EventEmitter();
+  @Output() deleteItem: EventEmitter<any> = new EventEmitter();
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -43,7 +49,7 @@ export class TableComponent implements OnInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator._intl.itemsPerPageLabel = "Items por página";
+    this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
   }
 
   applyFilter(event: Event) {
@@ -55,13 +61,19 @@ export class TableComponent implements OnInit {
     }
   }
 
-  see(entity: any) {
-    console.log('Ver');
-    console.log(entity);
+  new() {
+    this.newItem.emit();
+  }
+
+  edit(entity: any) {
+    this.editItem.emit(entity);
   }
 
   delete(entity: any) {
-    console.log('Eliminar');
-    console.log(entity);
+    this.deleteItem.emit(entity.id);
+  }
+
+  refreshData(data: any){
+    this.dataSource = new MatTableDataSource(data);
   }
 }

@@ -1,9 +1,12 @@
-@import '~@angular/material/theming';
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import '../node_modules/@angular/material/theming';
+@include mat-core();
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 // Define una nueva fuente para el tema
 $custom-font: 'Poppins', sans-serif;
+$my-primary: mat-palette($mat-pink, 500);
+$my-accent: mat-palette($mat-pink, A200);
 
 // Definir los valores de las variables de tipografía
 $typography: mat-typography-config(
@@ -15,9 +18,12 @@ $typography: mat-typography-config(
 
 // Definir el tema personalizado
 $custom-theme: mat-light-theme((
-  typography: $typography
+  typography: $typography,
+  color: (
+    primary: $my-primary,
+    accent: $my-accent
+  )
 ));
 
 // Incluir el tema personalizado en el archivo styles.scss
-@include mat-core();
 @include angular-material-theme($custom-theme);

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 import { Producto } from 'src/app/models/producto.model';
 import { NotificationService } from 'src/app/services/notificaciones.service';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -14,6 +15,8 @@ export class CatalogoComponent implements OnInit {
   criteria: string = '';
   showSpinner: boolean = false;
   productosLength: number = 0;
+
+  primaryColor: ThemePalette = 'primary';
 
   constructor(
     private productoService: ProductoService,

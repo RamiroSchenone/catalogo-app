@@ -9,33 +9,56 @@ body {
   background-color: #fcfafa;
 }
 
-:root {
-  --color-primary: #ef44a5;
-  --color-secondary: #f6f6f6;
-  --color-terciary: #ff9dc6;
-  --color-contrast: #000000;
+.mat-primary{
+  color: mat-color($my-primary);
 }
 
-/* Scrollbar */
-/* width */
-::-webkit-scrollbar {
-  width: 5px;
+.mat-dialog-container{
+  max-height: 80vh !important;
+  min-width: 30vw;
+  max-width: 60vw;
+
+  .mat-input-element{
+    color: black !important;
+  }
+
+  .mat-form-field{
+    width: 100%;
+  }
+
+  .button-wrapper{
+    display: flex;
+    justify-content: end;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .mat-hint{
+    color: red;
+    font-size: 12px;
+  }
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: var(--color-secondary);
-}
+// /* Scrollbar */
+// /* width */
+// ::-webkit-scrollbar {
+//   width: 5px;
+// }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-}
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background: var(--color-secondary);
+// }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-terciary);
-}
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   background: var(--color-primary);
+// }
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: var(--color-terciary);
+// }
 
 .mat-spinner {
   width: 100% !important;
@@ -43,9 +66,6 @@ body {
   svg {
     width: 100% !important;
     margin: auto;
-    circle {
-      stroke: var(--color-primary);
-    }
   }
 }
 
