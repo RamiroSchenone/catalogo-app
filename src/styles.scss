@@ -9,31 +9,31 @@ body {
   background-color: #fcfafa;
 }
 
-.mat-primary{
+.mat-primary {
   color: mat-color($my-primary);
 }
 
-.mat-dialog-container{
+.mat-dialog-container {
   max-height: 80vh !important;
   min-width: 30vw;
-  max-width: 60vw;
+  max-width: 80vw;
 
-  .mat-input-element{
+  .mat-input-element {
     color: black !important;
   }
 
-  .mat-form-field{
+  .mat-form-field {
     width: 100%;
   }
 
-  .button-wrapper{
+  .button-wrapper {
     display: flex;
     justify-content: end;
     gap: 15px;
     margin-top: 20px;
   }
 
-  .mat-hint{
+  .mat-hint {
     color: red;
     font-size: 12px;
   }
@@ -92,4 +92,58 @@ body {
 
 .mat-simple-snackbar {
   font-size: 15px;
+}
+
+.mat-form-field-hint-wrapper{
+  height: 18px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  width: 100%;
+  align-items: center;
+}
+
+.width-100 {
+  width: 100%;
+  flex-basis: 100%;
+  flex-grow: 1;
+}
+
+.width-50 {
+  width: 100%;
+  flex-basis: 45%;
+  flex-grow: 1;
+}
+
+.width-33 {
+  width: 100%;
+  flex-basis: 32%;
+  flex-grow: 1;
+}
+
+.width-25 {
+  width: 100%;
+  flex-basis: 23%;
+  flex-grow: 1;
+}
+
+.mat-form-field-flex {
+  background-color: transparent !important;
+}
+
+.mat-form-field-disabled{
+  .mat-form-field-flex{
+    border-bottom: 1px solid rgba(00, 00, 00, .1);
+    .mat-icon{
+      color: mat-color($my-primary);
+      opacity: .5;
+    }
+  }
+}
+
+.mat-input-element{
+  height: 20px;
 }

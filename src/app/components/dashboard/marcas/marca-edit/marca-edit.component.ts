@@ -27,7 +27,7 @@ export class MarcaEditComponent implements OnInit {
     this.entity = this.data.entity;
     this.isNew = this.data.isNew;
 
-    this.title = this.isNew ? 'Agregar marca' : 'Editar marca';
+    this.title = this.isNew ? 'Agregar marca' : `Editar marca (${this.entity.nombre})`;
 
     this.initForm();
   }

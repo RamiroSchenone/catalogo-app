@@ -6,10 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { ConfirmationDeleteComponent } from './components/confirmation-delete/confirmation-delete.component';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmationDeleteComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

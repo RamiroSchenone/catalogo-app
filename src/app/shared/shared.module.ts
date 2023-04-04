@@ -25,9 +25,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { TableComponent } from '../components/table/table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationDeleteComponent } from '../components/confirmation-delete/confirmation-delete.component';
+
+import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
 
 @NgModule({
-  declarations: [TableComponent],
+  declarations: [TableComponent, ConfirmationDeleteComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -55,6 +58,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatSnackBarModule,
   ],
+  providers: [FormatPhoneNumberPipe],
   exports: [
     FormsModule,
     ReactiveFormsModule,
@@ -82,6 +86,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
     //Componentes compartidos
     TableComponent,
+    ConfirmationDeleteComponent,
   ],
 })
 export class SharedModule {}

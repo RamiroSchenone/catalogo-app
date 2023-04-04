@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ColumnTable } from 'src/app/models/column-table.model';
+import { Usuario } from 'src/app/models/usuario.model';
+import { NotificationService } from 'src/app/services/notificaciones.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { UsuarioEditComponent } from './usuario-edit/usuario-edit.component';
+import { TableComponent } from '../../table/table.component';
+import { ConfirmationDeleteComponent } from '../../confirmation-delete/confirmation-delete.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -8,14 +15,24 @@ import { ColumnTable } from 'src/app/models/column-table.model';
 })
 export class UsuariosComponent implements OnInit {
   columns: ColumnTable[];
-  data: any;
+  data: Usuario[];
   title: string;
+  entity: string;
   opcionesPaginacion: number[] = [2, 5, 10, 25];
+  dataLoaded: boolean = false;
 
-  constructor() {}
+  @ViewChild(TableComponent) table: TableComponent;
+
+  constructor(
+    private notificationService: NotificationService,
+    private cdr: ChangeDetectorRef,
+    private usuarioService: UsuarioService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.title = 'Usuarios';
+    this.entity = 'Usuario';
     this.columns = [
       {
         name: 'id',
@@ -48,81 +65,79 @@ export class UsuariosComponent implements OnInit {
         label: 'Teléfono',
       },
     ];
+    this.usuarioService.getAll().subscribe(
+      (res) => {
+        this.data = res;
+        console.log(res);
 
-    const data = [
-      {
-        id: 1,
-        username: 'rschenone',
-        nombre: 'Ramiro',
-        apellido: 'Schenone',
-        email: 'rschenone@abaccesorios.com',
-        telefono: '2411111111',
+        if (this.data.length == 0) {
+          this.notificationService.showErrorMessage(
+            'Hubo un error con la base de datos. No se encontraron registros.'
+          );
+        }
+
+        this.dataLoaded = true;
+        this.cdr.detectChanges();
       },
-      {
-        id: 2,
-        username: 'abenitez',
-        nombre: 'Anna',
-        apellido: 'Benitez',
-        email: 'abenitez@abaccesorios.com',
-        telefono: '3411111111',
+      (error) => {
+        this.dataLoaded = true;
+        this.notificationService.showErrorMessage(error.message);
+      }
+    );
+  }
+
+  new() {
+    var entity = new Usuario();
+    const dialogRef = this.dialog.open(UsuarioEditComponent, {
+      data: {
+        entity: entity,
+        isNew: true,
       },
-      {
-        id: 3,
-        username: 'ischenone',
-        nombre: 'Ignacio',
-        apellido: 'Schenone',
-        email: 'ischenone@abaccesorios.com',
-        telefono: '3411111111',
+    });
+    dialogRef.afterClosed().subscribe((res?) => {
+      if (res) {
+        this.data.push(res);
+        this.table.refreshData(this.data);
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  edit(entity: Usuario) {
+    const dialogRef = this.dialog.open(UsuarioEditComponent, {
+      data: {
+        entity: entity,
+        isNew: false,
       },
-      {
-        id: 4,
-        username: 'rwendler',
-        nombre: 'Rufina',
-        apellido: 'Wendler',
-        email: 'rwendler@abaccesorios.com',
-        telefono: '3411111111',
-      },
-      {
-        id: 5,
-        username: 'rwendler',
-        nombre: 'Rufina',
-        apellido: 'Wendler',
-        email: 'rwendler@abaccesorios.com',
-        telefono: '3411111111',
-      },
-      {
-        id: 6,
-        username: 'rwendler',
-        nombre: 'Rufina',
-        apellido: 'Wendler',
-        email: 'rwendler@abaccesorios.com',
-        telefono: '3411111111',
-      },
-      {
-        id: 7,
-        username: 'rwendler',
-        nombre: 'Rufina',
-        apellido: 'Wendler',
-        email: 'rwendler@abaccesorios.com',
-        telefono: '3411111111',
-      },
-      {
-        id: 8,
-        username: 'rwendler',
-        nombre: 'Rufina',
-        apellido: 'Wendler',
-        email: 'rwendler@abaccesorios.com',
-        telefono: '3411111111',
-      },
-      {
-        id: 9,
-        username: 'rwendler',
-        nombre: 'Rufina',
-        apellido: 'Wendler',
-        email: 'rwendler@abaccesorios.com',
-        telefono: '3411111111',
-      },
-    ];
-    this.data = data;
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      let index = this.data.findIndex((e) => e.id === res.id);
+
+      if (index !== -1) {
+        this.data[index] = res;
+
+        this.table.refreshData(this.data);
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  delete(usuarioId: number) {
+    const dialogRef = this.dialog.open(ConfirmationDeleteComponent);
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.usuarioService.delete(usuarioId).subscribe(
+          (response) => {
+            this.notificationService.showSuccessMessage(response.message);
+
+            this.data = this.data.filter((e) => e.id !== usuarioId);
+            this.table.refreshData(this.data);
+          },
+          (error: any) => {
+            this.notificationService.showErrorMessage(error.message);
+          }
+        );
+      }
+    });
   }
 }

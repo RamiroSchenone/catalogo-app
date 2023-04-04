@@ -10,6 +10,7 @@ import { CatalogoComponent } from './catalogo/catalogo.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ProductoCardComponent } from './catalogo/producto-card/producto-card.component';
 import { MarcaEditComponent } from './marcas/marca-edit/marca-edit.component';
+import { UsuarioEditComponent } from './usuarios/usuario-edit/usuario-edit.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MarcaEditComponent } from './marcas/marca-edit/marca-edit.component';
     CatalogoComponent,
     UsuariosComponent,
     ProductoCardComponent,
-    MarcaEditComponent
+    MarcaEditComponent,
+    UsuarioEditComponent
   ],
   imports: [
     CommonModule,

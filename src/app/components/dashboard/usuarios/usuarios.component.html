@@ -1,8 +1,13 @@
-<div class="container">
+<div class="container" *ngIf="dataLoaded">
   <app-table
     [columns]="columns"
     [title]="title"
+    [entity]="entity"
+    [data]="data"
     [opcionesPaginacion]="opcionesPaginacion"
     [showColumnAction]="true"
+    (editItem)="edit($event)"
+    (deleteItem)="delete($event)"
+    (newItem)="new()"
   ></app-table>
 </div>
