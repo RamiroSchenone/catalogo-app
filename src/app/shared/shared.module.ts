@@ -22,6 +22,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { TableComponent } from '../components/table/table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -57,6 +58,7 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
   ],
   providers: [FormatPhoneNumberPipe],
   exports: [
@@ -83,6 +85,7 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
 
     //Componentes compartidos
     TableComponent,

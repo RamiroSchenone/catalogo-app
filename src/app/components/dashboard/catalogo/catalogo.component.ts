@@ -20,7 +20,7 @@ export class CatalogoComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
-    private notifactionService: NotificationService
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class CatalogoComponent implements OnInit {
         this.showSpinner = false;
       },
       (error) => {
-        this.notifactionService.showErrorMessage(error.message);
+        this.notificationService.showErrorMessage(error.message);
         this.showSpinner = false;
       }
     );
@@ -60,7 +60,7 @@ export class CatalogoComponent implements OnInit {
         }
       },
       (error) => {
-        this.notifactionService.showErrorMessage(error.message);
+        this.notificationService.showErrorMessage(error.message);
       }
     );
   }

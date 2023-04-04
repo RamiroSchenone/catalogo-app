@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Producto } from '../models/producto.model';
 import { BaseService } from './base.service';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';

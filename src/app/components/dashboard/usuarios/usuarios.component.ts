@@ -15,11 +15,11 @@ import { ConfirmationDeleteComponent } from '../../confirmation-delete/confirmat
 })
 export class UsuariosComponent implements OnInit {
   columns: ColumnTable[];
-  data: Usuario[];
+  data: Usuario[] = [];
+  dataLoaded: boolean = false;
   title: string;
   entity: string;
-  opcionesPaginacion: number[] = [2, 5, 10, 25];
-  dataLoaded: boolean = false;
+  opcionesPaginacion: number[] = [5, 10, 25, 50];
 
   @ViewChild(TableComponent) table: TableComponent;
 
@@ -31,6 +31,25 @@ export class UsuariosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.usuarioService.getAll().subscribe(
+      (res) => {
+        this.data = res;
+
+        if (this.data.length == 0) {
+          this.notificationService.showErrorMessage(
+            'Hubo un error con la base de datos. No se encontraron registros.'
+          );
+        }
+
+        this.dataLoaded = true;
+        this.cdr.detectChanges();
+      },
+      (error) => {
+        this.dataLoaded = true;
+        this.notificationService.showErrorMessage(error.message);
+      }
+    );
+
     this.title = 'Usuarios';
     this.entity = 'Usuario';
     this.columns = [
@@ -65,25 +84,6 @@ export class UsuariosComponent implements OnInit {
         label: 'Teléfono',
       },
     ];
-    this.usuarioService.getAll().subscribe(
-      (res) => {
-        this.data = res;
-        console.log(res);
-
-        if (this.data.length == 0) {
-          this.notificationService.showErrorMessage(
-            'Hubo un error con la base de datos. No se encontraron registros.'
-          );
-        }
-
-        this.dataLoaded = true;
-        this.cdr.detectChanges();
-      },
-      (error) => {
-        this.dataLoaded = true;
-        this.notificationService.showErrorMessage(error.message);
-      }
-    );
   }
 
   new() {

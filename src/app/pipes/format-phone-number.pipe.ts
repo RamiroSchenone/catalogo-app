@@ -5,11 +5,10 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js';
   name: 'formatPhoneNumber',
 })
 export class FormatPhoneNumberPipe implements PipeTransform {
-  transform(value: number): string {
-    const valueString = value.toString();
-    const phoneNumber = parsePhoneNumberFromString(valueString, 'AR');
+  transform(value: string): string {
+    const phoneNumber = parsePhoneNumberFromString(value, 'AR');
     if (!phoneNumber) {
-      return valueString;
+      return value;
     }
     return `+${phoneNumber.countryCallingCode} ${phoneNumber.formatNational()}`;
   }

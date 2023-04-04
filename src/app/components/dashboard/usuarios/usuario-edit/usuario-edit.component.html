@@ -2,7 +2,7 @@
   <h2 style="font-weight: 400">{{ title }}</h2>
   <div class="form-group">
     <div class="flex-container">
-      <div class="width-50">
+      <div class="width-30">
         <mat-form-field appearance="fill">
           <mat-label>Nombre de usuario</mat-label>
           <input
@@ -14,17 +14,6 @@
           <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="width-50">
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="Email" formControlName="email" />
-          <mat-icon matSuffix>diamond</mat-icon>
-          <mat-hint *ngIf="emailInvalido">Ingrese un mail valido.</mat-hint>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div class="flex-container">
       <div class="width-30">
         <mat-form-field appearance="fill">
           <mat-label>Nombre</mat-label>
@@ -41,7 +30,18 @@
           <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="width-30">
+    </div>
+
+    <div class="flex-container">
+      <div class="width-50">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email" />
+          <mat-icon matSuffix>diamond</mat-icon>
+          <mat-hint *ngIf="emailInvalido">Ingrese un mail valido.</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="width-50">
         <mat-form-field appearance="fill">
           <mat-label>Teléfono</mat-label>
           <input matInput placeholder="Teléfono" formControlName="telefono" />
@@ -51,33 +51,42 @@
       </div>
     </div>
 
-    <div class="flex-container">
-      <div class="width-50">
-        <mat-form-field appearance="fill">
-          <mat-label>Calle</mat-label>
-          <input
-            matInput
-            placeholder="Calle"
-            formControlName="direccionCalle"
-          />
-          <mat-icon matSuffix>diamond</mat-icon>
-          <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
-        </mat-form-field>
+    <ng-container formGroupName="direccion">
+      <div class="flex-container">
+        <div class="width-50">
+          <mat-form-field appearance="fill">
+            <mat-label>Calle</mat-label>
+            <input
+              matInput
+              placeholder="Calle"
+              formControlName="direccionCalle"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+          </mat-form-field>
+        </div>
+        <div class="width-50">
+          <mat-form-field appearance="fill">
+            <mat-label>Número</mat-label>
+            <input
+              matInput
+              placeholder="Número"
+              formControlName="direccionNumero"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+          </mat-form-field>
+        </div>
       </div>
-      <div class="width-50">
-        <mat-form-field appearance="fill">
-          <mat-label>Número</mat-label>
-          <input
-            matInput
-            placeholder="Número"
-            formControlName="direccionNumero"
-          />
-          <mat-icon matSuffix>diamond</mat-icon>
-          <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
-        </mat-form-field>
-      </div>
-    </div>
-    <ng-container> </ng-container>
+
+      <!-- mat autocomplete con iterando entre provinciasGeoRef.descripcion como option -->
+      <mat-form-field appearance="fill">
+        <mat-label>localidadGeoRefId</mat-label>
+        <input matInput placeholder="localidadGeoRefId" formControlName="localidadGeoRefId" />
+        <mat-icon matSuffix>diamond</mat-icon>
+        <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+      </mat-form-field>
+    </ng-container>
   </div>
   <div class="button-wrapper">
     <button

@@ -4,24 +4,18 @@ export class Usuario {
   apellido: string;
   username: string;
   email: string;
-  telefono: number;
-  direccion: string;
+  telefono: string;
+  domicilioId: number;
+  domicilio: Domicilio;
+  fechaCreacion: Date;
+}
+
+export class Domicilio {
+  id: number;
   direccionNumero: string;
   direccionCalle: string;
-  fechaCreacion: Date;
-  localidadId: number;
-  localidad: Localidad;
-}
-
-export class Localidad {
-  id: number;
-  descripcion: string;
-  codigoPostal: number;
-  provinciaId: number;
-  provincia: Provincia;
-}
-
-export class Provincia {
-    id: number;
-    descripcion: string;
+  localidadGeoRefId: number;
+  localidadGeoRefDescripcion: string;
+  provinciaGeoRefId: number;
+  provinciaGeoRefDescripcion: string;
 }

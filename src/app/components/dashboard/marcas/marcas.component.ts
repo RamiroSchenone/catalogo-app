@@ -1,13 +1,10 @@
 import {
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   OnInit,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
 import { ColumnTable } from 'src/app/models/column-table.model';
 import { Marca } from 'src/app/models/marca.model';
 import { MarcaService } from 'src/app/services/marca.service';
@@ -24,7 +21,6 @@ import { ConfirmationDeleteComponent } from '../../confirmation-delete/confirmat
 export class MarcasComponent implements OnInit {
   columns: ColumnTable[];
   data: Marca[] = [];
-  dataSource: any;
   dataLoaded: boolean = false;
   title: string;
   entity: string;
@@ -34,7 +30,7 @@ export class MarcasComponent implements OnInit {
 
   constructor(
     private marcaService: MarcaService,
-    private notifactionService: NotificationService,
+    private notificationService: NotificationService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog
   ) {}
@@ -45,7 +41,7 @@ export class MarcasComponent implements OnInit {
         this.data = res;
 
         if (this.data.length == 0) {
-          this.notifactionService.showErrorMessage(
+          this.notificationService.showErrorMessage(
             'Hubo un error con la base de datos. No se encontraron registros.'
           );
         }
@@ -55,7 +51,7 @@ export class MarcasComponent implements OnInit {
       },
       (error) => {
         this.dataLoaded = true;
-        this.notifactionService.showErrorMessage(error.message);
+        this.notificationService.showErrorMessage(error.message);
       }
     );
 
@@ -117,13 +113,13 @@ export class MarcasComponent implements OnInit {
       if (res) {
         this.marcaService.delete(marcaId).subscribe(
           (response) => {
-            this.notifactionService.showSuccessMessage(response.message);
+            this.notificationService.showSuccessMessage(response.message);
 
             this.data = this.data.filter((e) => e.id !== marcaId);
             this.table.refreshData(this.data);
           },
           (error: any) => {
-            this.notifactionService.showErrorMessage(error.message);
+            this.notificationService.showErrorMessage(error.message);
           }
         );
       }
