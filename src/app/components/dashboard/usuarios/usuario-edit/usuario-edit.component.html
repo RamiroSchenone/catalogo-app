@@ -80,10 +80,24 @@
       </div>
 
       <!-- mat autocomplete con iterando entre provinciasGeoRef.descripcion como option -->
-      <mat-form-field appearance="fill">
-        <mat-label>localidadGeoRefId</mat-label>
-        <input matInput placeholder="localidadGeoRefId" formControlName="localidadGeoRefId" />
+      <mat-form-field>
+        <mat-label>Provincia</mat-label>
+        <input
+          matInput
+          placeholder="Provincia"
+          type="text"
+          formControlName="provinciaGeoRefId"
+          [matAutocomplete]="auto"
+        />
         <mat-icon matSuffix>diamond</mat-icon>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let provincia of provinciasGeoRefFiltered"
+            [value]="provincia"
+          >
+            {{ provincia }}
+          </mat-option>
+        </mat-autocomplete>
         <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
       </mat-form-field>
     </ng-container>

@@ -29,7 +29,8 @@ export class UsuarioEditComponent implements OnInit {
 
   provinciasGeoRefIsSelected: boolean;
   localidadGeoRefSelected: LocalidadGeoRefApi;
-  provinciasGeoRef: ProvinciaGeoRefApi[];
+  provinciasGeoRef: any;
+  provinciasGeoRefFiltered: any;
   localidadesGeoRef: any[];
 
   constructor(
@@ -72,6 +73,16 @@ export class UsuarioEditComponent implements OnInit {
         { emitEvent: false }
       );
     });
+
+    this.formGroup.get('direccion.provinciaGeoRefId').valueChanges.subscribe(val => {
+      this.filterProvincias(val);
+    });
+  }
+
+  filterProvincias(val: string){
+    this.provinciasGeoRefFiltered = this.provinciasGeoRef.filter((provinciaName: any) => {
+      return provinciaName.toLocaleLowerCase().indexOf(val.toLocaleLowerCase()) > -1;
+    })
   }
 
   initForm() {
@@ -117,15 +128,22 @@ export class UsuarioEditComponent implements OnInit {
     }
   }
 
-  getProvincias() {
-    this.geoRefApiService.getAllProvincias().subscribe((data: any) => {
-      this.provinciasGeoRef = data.provincias;
-      this.provinciasGeoRef = this.provinciasGeoRef.map((provincia: any) => ({
-        id: provincia.id,
-        descripcion: provincia.nombre,
-        position: provincia.centroide,
-      }));
-      console.log(this.provinciasGeoRef);
+  // getProvincias() {
+  //   this.geoRefApiService.getAllProvincias().subscribe((data: any) => {
+  //     this.provinciasGeoRef = data.provincias;
+  //     this.provinciasGeoRef = this.provinciasGeoRef.map((provincia: any) => ({
+  //       id: provincia.id,
+  //       descripcion: provincia.nombre,
+  //       position: provincia.centroide,
+  //     }));
+  //     console.log(this.provinciasGeoRef);
+  //   });
+  // }
+
+  getProvincias(){
+    this.geoRefApiService.getAllProvincias().subscribe(res => {
+      this.provinciasGeoRef = res;
+      this.provinciasGeoRefFiltered = res;
     });
   }
 
