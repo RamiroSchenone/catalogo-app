@@ -27,11 +27,16 @@ export class UsuarioEditComponent implements OnInit {
 
   patternEmail: string = environment.getEmailPattern();
 
-  provinciasGeoRefIsSelected: boolean;
-  localidadGeoRefSelected: LocalidadGeoRefApi;
-  provinciasGeoRef: any;
-  provinciasGeoRefFiltered: any;
-  localidadesGeoRef: any[];
+  provinciaIsSelected: boolean = false;
+
+  provincias: any;
+  provinciaSelected: any;
+  provinciasDescription: any;
+  provinciasDescriptionFiltered: any;
+
+  localidades: any;
+  localidadesDescription: any;
+  localidadesDescriptionFiltered: any;
 
   constructor(
     public dialogRef: MatDialogRef<UsuarioEditComponent>,
@@ -65,26 +70,6 @@ export class UsuarioEditComponent implements OnInit {
     );
   }
 
-  subscribeFormGroup() {
-    this.formGroup.get('telefono')?.valueChanges.subscribe((val) => {
-      const formattedPhoneNumber = this.formatPhoneNumberPipe.transform(val);
-      this.formGroup.patchValue(
-        { telefono: formattedPhoneNumber },
-        { emitEvent: false }
-      );
-    });
-
-    this.formGroup.get('direccion.provinciaGeoRefId').valueChanges.subscribe(val => {
-      this.filterProvincias(val);
-    });
-  }
-
-  filterProvincias(val: string){
-    this.provinciasGeoRefFiltered = this.provinciasGeoRef.filter((provinciaName: any) => {
-      return provinciaName.toLocaleLowerCase().indexOf(val.toLocaleLowerCase()) > -1;
-    })
-  }
-
   initForm() {
     this.formGroup = this.fb.group({
       username: [{ value: '', disabled: true }],
@@ -95,10 +80,56 @@ export class UsuarioEditComponent implements OnInit {
       direccion: this.fb.group({
         direccionNumero: ['', [Validators.required]],
         direccionCalle: ['', [Validators.required]],
-        localidadGeoRefId: ['', [Validators.required]],
-        provinciaGeoRefId: ['', [Validators.required]],
+        provinciaGeoRefDescripcion: ['', [Validators.required]],
+        localidadGeoRefDescripcion: ['', [Validators.required]],
       }),
     });
+  }
+
+  subscribeFormGroup() {
+    this.formGroup.get('telefono')?.valueChanges.subscribe((val) => {
+      const formattedPhoneNumber = this.formatPhoneNumberPipe.transform(val);
+      this.formGroup.patchValue(
+        { telefono: formattedPhoneNumber },
+        { emitEvent: false }
+      );
+    });
+
+    this.formGroup
+      .get('direccion.provinciaGeoRefDescripcion')
+      .valueChanges.subscribe((val) => {
+        this.filterProvincias(val);
+      });
+
+    this.formGroup
+      .get('direccion.localidadGeoRefDescripcion')
+      .valueChanges.subscribe((val) => {
+        this.filterLocalidades(val);
+      });
+  }
+
+  filterProvincias(val: string) {
+    this.provinciasDescriptionFiltered = this.provinciasDescription.filter(
+      (provinciaDescription: any) => {
+        return (
+          provinciaDescription
+            .toLocaleLowerCase()
+            .indexOf(val.toLocaleLowerCase()) > -1
+        );
+      }
+    );
+  }
+
+  filterLocalidades(val: string) {
+    this.localidadesDescriptionFiltered = this.localidadesDescription.filter(
+      (localidadDescription: any) => {
+        return (
+          localidadDescription
+            .toLocaleLowerCase()
+            .indexOf(val.toLocaleLowerCase()) > -1
+        );
+      }
+    );
   }
 
   setDataForm() {
@@ -112,76 +143,82 @@ export class UsuarioEditComponent implements OnInit {
   }
 
   //------------------------------------------------------Api Geo Ref Argentina----------------------------------------
-  provinciaGeoRefChange(provinciaId: any) {
-    this.provinciasGeoRefIsSelected = false;
-    this.localidadGeoRefSelected = new LocalidadGeoRefApi();
-    if (provinciaId != null) {
-      this.getProvincia(provinciaId);
-      this.getLocalidades(provinciaId);
-      this.provinciasGeoRefIsSelected = true;
-    }
-  }
-
-  localidadGeoRefChange(localidadId: any) {
-    if (typeof localidadId === 'string') {
-      this.getLocalidad(localidadId);
-    }
-  }
-
-  // getProvincias() {
-  //   this.geoRefApiService.getAllProvincias().subscribe((data: any) => {
-  //     this.provinciasGeoRef = data.provincias;
-  //     this.provinciasGeoRef = this.provinciasGeoRef.map((provincia: any) => ({
-  //       id: provincia.id,
-  //       descripcion: provincia.nombre,
-  //       position: provincia.centroide,
-  //     }));
-  //     console.log(this.provinciasGeoRef);
-  //   });
+  // provinciaGeoRefChange(provinciaId: any) {
+  //   this.provinciasGeoRefIsSelected = false;
+  //   this.localidadGeoRefSelected = new LocalidadGeoRefApi();
+  //   if (provinciaId != null) {
+  //     this.getProvincia(provinciaId);
+  //     this.getLocalidades(provinciaId);
+  //     this.provinciasGeoRefIsSelected = true;
+  //   }
   // }
 
-  getProvincias(){
-    this.geoRefApiService.getAllProvincias().subscribe(res => {
-      this.provinciasGeoRef = res;
-      this.provinciasGeoRefFiltered = res;
+  // localidadGeoRefChange(localidadId: any) {
+  //   if (typeof localidadId === 'string') {
+  //     this.getLocalidad(localidadId);
+  //   }
+  // }
+
+  getProvincias() {
+    this.geoRefApiService.getAllProvincias().subscribe((data: any) => {
+      this.provincias = data.provincias;
+      this.provinciasDescription = this.provincias.map(
+        (item: any) => item['nombre']
+      );
+      this.provinciasDescriptionFiltered = this.provinciasDescription;
     });
   }
 
-  getProvincia(provinciaId: any) {
-    this.geoRefApiService
-      .getProvinciaById(provinciaId)
-      .subscribe((data: any) => {
-        this.provinciasGeoRefIsSelected = data.provincias[0];
-        this.provinciasGeoRefIsSelected = true;
-        this.cdr.detectChanges();
-      });
-  }
+  // getProvincias(){
+  //   this.geoRefApiService.getAllProvincias().subscribe(res => {
+  //     this.provinciasGeoRef = res;
+  //     this.provinciasGeoRefFiltered = res;
+  //   });
+  // }
+
+  // getProvincia(provinciaId: any) {
+  //   this.geoRefApiService
+  //     .getProvinciaById(provinciaId)
+  //     .subscribe((data: any) => {
+  //       this.provinciasGeoRefIsSelected = data.provincias[0];
+  //       this.provinciasGeoRefIsSelected = true;
+  //       this.cdr.detectChanges();
+  //     });
+  // }
 
   getLocalidades(provinciaId: any) {
     this.geoRefApiService
       .getLocalidadesByProvinciaId(provinciaId)
       .subscribe((data: any) => {
-        this.localidadesGeoRef = data.localidades;
-        this.localidadesGeoRef = this.localidadesGeoRef.map(
-          (localidad: LocalidadGeoRefApi) => ({
-            id: localidad.id,
-            descripcion: localidad.nombre,
-            position: localidad.centroide,
-          })
+        this.localidades = data.localidades;
+        this.localidadesDescription = this.localidades.map(
+          (item: any) => item['nombre']
         );
-        this.provinciasGeoRefIsSelected = true;
-        this.cdr.detectChanges();
+        this.localidadesDescriptionFiltered = this.localidadesDescription;
       });
   }
 
-  getLocalidad(localidadId: any) {
-    this.geoRefApiService
-      .getLocalidadById(localidadId)
-      .subscribe((data: any) => {
-        this.localidadGeoRefSelected = data.localidades[0];
-      });
-  }
+  // getLocalidad(localidadId: any) {
+  //   this.geoRefApiService
+  //     .getLocalidadById(localidadId)
+  //     .subscribe((data: any) => {
+  //       this.localidadGeoRefSelected = data.localidades[0];
+  //     });
+  // }
   //------------------------------------------------------Api Geo Ref Argentina----------------------------------------
+
+  onProvinciaSelected(provincia: any){
+    this.formGroup.get('direccion.localidadGeoRefDescripcion').setValue(null);
+    this.provinciaSelected = this.provincias.filter((x: any) => x.nombre === provincia);
+    this.getLocalidades(this.provinciaSelected[0].id);
+    this.provinciaIsSelected = true;
+    this.getProvincias();
+    this.cdr.detectChanges();
+  }
+
+  onLocalidadSelected(){
+    this.getLocalidades(this.provinciaSelected[0].id);
+  }
 
   onSubmit() {
     console.log(this.formGroup);

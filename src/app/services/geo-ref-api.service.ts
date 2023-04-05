@@ -5,8 +5,6 @@ import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-type NewType = Observable<any>;
-
 @Injectable({
   providedIn: 'root',
 })
@@ -15,24 +13,9 @@ export class GeoRefApiService {
 
   geoRefApiUrl: string = environment.getGeoRefApiURL();
 
-  // getAllProvincias(): Observable<any[]> {
-  //   const url = this.geoRefApiUrl + '/provincias';
-  //   return this.http.get<any>(url).pipe(
-  //     catchError((error) => {
-  //       if (error.status === 401 || error.status === 403) {
-  //         // handle error
-  //         console.log(error);
-  //       }
-  //       return throwError(error);
-  //     })
-  //   );
-  // }
-
-  getAllProvincias() {
-    return this.http.get(this.geoRefApiUrl + '/provincias').pipe(
-      map((response: any) =>
-        response.provincias.map((item: any) => item['nombre'])
-      ),
+  getAllProvincias(): Observable<any[]> {
+    const url = this.geoRefApiUrl + '/provincias';
+    return this.http.get<any>(url).pipe(
       catchError((error) => {
         if (error.status === 401 || error.status === 403) {
           // handle error
@@ -42,6 +25,21 @@ export class GeoRefApiService {
       })
     );
   }
+
+  // getAllProvincias() {
+  //   return this.http.get(this.geoRefApiUrl + '/provincias').pipe(
+  //     map((response: any) =>
+  //       response.provincias.map((item: any) => item['nombre'])
+  //     ),
+  //     catchError((error) => {
+  //       if (error.status === 401 || error.status === 403) {
+  //         // handle error
+  //         console.log(error);
+  //       }
+  //       return throwError(error);
+  //     })
+  //   );
+  // }
 
   getLocalidadesByProvinciaId(provinciaId: number): Observable<any[]> {
     const url = `${this.geoRefApiUrl}/localidades?provincia=${provinciaId}&max=1000`;

@@ -44,7 +44,7 @@
       <div class="width-50">
         <mat-form-field appearance="fill">
           <mat-label>Teléfono</mat-label>
-          <input matInput placeholder="Teléfono" formControlName="telefono" />
+          <input matInput maxlength="14" placeholder="Teléfono" formControlName="telefono" />
           <mat-icon matSuffix>diamond</mat-icon>
           <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
         </mat-form-field>
@@ -79,29 +79,67 @@
         </div>
       </div>
 
-      <!-- mat autocomplete con iterando entre provinciasGeoRef.descripcion como option -->
-      <mat-form-field>
-        <mat-label>Provincia</mat-label>
-        <input
-          matInput
-          placeholder="Provincia"
-          type="text"
-          formControlName="provinciaGeoRefId"
-          [matAutocomplete]="auto"
-        />
-        <mat-icon matSuffix>diamond</mat-icon>
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option
-            *ngFor="let provincia of provinciasGeoRefFiltered"
-            [value]="provincia"
-          >
-            {{ provincia }}
-          </mat-option>
-        </mat-autocomplete>
-        <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
-      </mat-form-field>
+      <div class="flex-container">
+        <div class="width-50">
+          <mat-form-field appearance="fill">
+            <mat-label>Provincia</mat-label>
+            <input
+              matInput
+              placeholder="Provincia"
+              type="text"
+              formControlName="provinciaGeoRefDescripcion"
+              [matAutocomplete]="autoProvincia"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-autocomplete #autoProvincia="matAutocomplete" >
+              <mat-option (click)="onProvinciaSelected(provinciaDescription)"
+                *ngFor="let provinciaDescription of provinciasDescriptionFiltered"
+                [value]="provinciaDescription"
+              >
+                {{ provinciaDescription }}
+              </mat-option>
+            </mat-autocomplete>
+            <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+          </mat-form-field>
+        </div>
+        <div class="width-50">
+          <mat-form-field appearance="fill">
+            <mat-label>Localidad</mat-label>
+            <input
+              matInput
+              placeholder="Localidad"
+              type="text"
+              formControlName="localidadGeoRefDescripcion"
+              [appDisabledIf]="!provinciaIsSelected"
+              [matAutocomplete]="autoLocalidad"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-autocomplete #autoLocalidad="matAutocomplete">
+              <mat-option (click)="onLocalidadSelected()"
+                *ngFor="let localidadDescripcion of localidadesDescriptionFiltered"
+                [value]="localidadDescripcion"
+              >
+                {{ localidadDescripcion }}
+              </mat-option>
+            </mat-autocomplete>
+            <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+          </mat-form-field>
+        </div>
+      </div>
     </ng-container>
   </div>
+
+  <hr>
+  <pre>
+    Estado del form: {{formGroup.valid}}
+    <br>
+    Status: {{formGroup.status}}
+  </pre>
+
+  <pre>
+    {{formGroup.value | json }}
+  </pre>
+
   <div class="button-wrapper">
     <button
       type="button"

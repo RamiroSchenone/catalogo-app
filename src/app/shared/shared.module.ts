@@ -22,16 +22,21 @@ import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { TableComponent } from '../components/table/table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDeleteComponent } from '../components/confirmation-delete/confirmation-delete.component';
 
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
+import { DisabledIfDirective } from '../directives/disabled-if.directive';
 
 @NgModule({
-  declarations: [TableComponent, ConfirmationDeleteComponent],
+  declarations: [
+    TableComponent,
+    ConfirmationDeleteComponent,
+    DisabledIfDirective,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -60,7 +65,10 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
     MatSnackBarModule,
     MatAutocompleteModule,
   ],
-  providers: [FormatPhoneNumberPipe],
+  providers: [
+    //Pipes
+    FormatPhoneNumberPipe
+  ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
@@ -90,6 +98,9 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
     //Componentes compartidos
     TableComponent,
     ConfirmationDeleteComponent,
+
+    //Directives
+    DisabledIfDirective,
   ],
 })
 export class SharedModule {}
