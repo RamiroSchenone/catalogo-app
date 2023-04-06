@@ -2,14 +2,9 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {
-  LocalidadGeoRefApi,
-  ProvinciaGeoRefApi,
-} from 'src/app/models/geo-ref-api.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FormatPhoneNumberPipe } from 'src/app/pipes/format-phone-number.pipe';
 import { GeoRefApiService } from 'src/app/services/geo-ref-api.service';
-import { MarcaService } from 'src/app/services/marca.service';
 import { NotificationService } from 'src/app/services/notificaciones.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { environment } from 'src/environments/environment';
@@ -26,8 +21,6 @@ export class UsuarioEditComponent implements OnInit {
   title: string;
 
   patternEmail: string = environment.getEmailPattern();
-
-  provinciaIsSelected: boolean = false;
 
   provincias: any;
   provinciaSelected: any;
@@ -72,6 +65,10 @@ export class UsuarioEditComponent implements OnInit {
     return this.formGroup.get('direccion.provinciaGeoRefDescripcion');
   }
 
+  get telefonoControl() {
+    return this.formGroup.get('telefono');
+  }
+
   get emailInvalido() {
     return (
       this.formGroup.get('email')?.invalid &&
@@ -100,7 +97,7 @@ export class UsuarioEditComponent implements OnInit {
   }
 
   subscribeFormGroup() {
-    this.formGroup.get('telefono')?.valueChanges.subscribe((val) => {
+    this.telefonoControl.valueChanges.subscribe((val) => {
       const formattedPhoneNumber = this.formatPhoneNumberPipe.transform(val);
       this.formGroup.patchValue(
         { telefono: formattedPhoneNumber },
@@ -108,11 +105,9 @@ export class UsuarioEditComponent implements OnInit {
       );
     });
 
-    this.formGroup
-      .get('direccion.provinciaGeoRefDescripcion')
-      .valueChanges.subscribe((val) => {
-        this.filterProvincias(val);
-      });
+    this.provinciaControl.valueChanges.subscribe((val) => {
+      this.filterProvincias(val);
+    });
 
     this.localidadControl.valueChanges.subscribe((val) => {
       if (val == '' || val == null) {
@@ -237,6 +232,15 @@ export class UsuarioEditComponent implements OnInit {
 
   onLocalidadSelected() {
     this.getLocalidades(this.provinciaSelected.id);
+  }
+
+  onlyNumbers(event: KeyboardEvent) {
+    const key = event.key;
+    const numeric = /^[0-9]$/.test(key);
+    if (!numeric) {
+      // Detiene la propagación del evento para evitar que se escriba el carácter
+      event.preventDefault();
+    }
   }
 
   onSubmit() {

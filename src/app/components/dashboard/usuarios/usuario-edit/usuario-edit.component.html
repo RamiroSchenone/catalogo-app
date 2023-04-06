@@ -46,9 +46,10 @@
           <mat-label>Teléfono</mat-label>
           <input
             matInput
-            maxlength="14"
+            maxlength="16"
             placeholder="Teléfono"
             formControlName="telefono"
+            (keypress)="onlyNumbers($event)"
           />
           <mat-icon matSuffix>diamond</mat-icon>
           <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
@@ -77,6 +78,7 @@
               matInput
               placeholder="Número"
               formControlName="direccionNumero"
+              (keypress)="onlyNumbers($event)"
             />
             <mat-icon matSuffix>diamond</mat-icon>
             <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
@@ -99,7 +101,7 @@
             <mat-icon matSuffix>diamond</mat-icon>
             <mat-autocomplete #autoProvincia="matAutocomplete">
               <mat-option
-              (click)="onProvinciaSelected(null, true)"
+                (click)="onProvinciaSelected(null, true)"
                 *ngFor="
                   let provinciaDescription of provinciasDescriptionFiltered
                 "
