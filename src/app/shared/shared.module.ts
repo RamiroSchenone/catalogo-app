@@ -29,13 +29,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDeleteComponent } from '../components/confirmation-delete/confirmation-delete.component';
 
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
-import { DisabledIfDirective } from '../directives/disabled-if.directive';
 
 @NgModule({
   declarations: [
     TableComponent,
     ConfirmationDeleteComponent,
-    DisabledIfDirective,
   ],
   imports: [
     CommonModule,
@@ -98,9 +96,6 @@ import { DisabledIfDirective } from '../directives/disabled-if.directive';
     //Componentes compartidos
     TableComponent,
     ConfirmationDeleteComponent,
-
-    //Directives
-    DisabledIfDirective,
   ],
 })
 export class SharedModule {}

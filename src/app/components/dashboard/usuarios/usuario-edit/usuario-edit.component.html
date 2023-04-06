@@ -44,7 +44,12 @@
       <div class="width-50">
         <mat-form-field appearance="fill">
           <mat-label>Teléfono</mat-label>
-          <input matInput maxlength="14" placeholder="Teléfono" formControlName="telefono" />
+          <input
+            matInput
+            maxlength="14"
+            placeholder="Teléfono"
+            formControlName="telefono"
+          />
           <mat-icon matSuffix>diamond</mat-icon>
           <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
         </mat-form-field>
@@ -89,11 +94,15 @@
               type="text"
               formControlName="provinciaGeoRefDescripcion"
               [matAutocomplete]="autoProvincia"
+              (keydown)="onProvinciaSelected($event)"
             />
             <mat-icon matSuffix>diamond</mat-icon>
-            <mat-autocomplete #autoProvincia="matAutocomplete" >
-              <mat-option (click)="onProvinciaSelected(provinciaDescription)"
-                *ngFor="let provinciaDescription of provinciasDescriptionFiltered"
+            <mat-autocomplete #autoProvincia="matAutocomplete">
+              <mat-option
+              (click)="onProvinciaSelected(null, true)"
+                *ngFor="
+                  let provinciaDescription of provinciasDescriptionFiltered
+                "
                 [value]="provinciaDescription"
               >
                 {{ provinciaDescription }}
@@ -110,13 +119,15 @@
               placeholder="Localidad"
               type="text"
               formControlName="localidadGeoRefDescripcion"
-              [appDisabledIf]="!provinciaIsSelected"
               [matAutocomplete]="autoLocalidad"
             />
             <mat-icon matSuffix>diamond</mat-icon>
             <mat-autocomplete #autoLocalidad="matAutocomplete">
-              <mat-option (click)="onLocalidadSelected()"
-                *ngFor="let localidadDescripcion of localidadesDescriptionFiltered"
+              <mat-option
+                (click)="onLocalidadSelected()"
+                *ngFor="
+                  let localidadDescripcion of localidadesDescriptionFiltered
+                "
                 [value]="localidadDescripcion"
               >
                 {{ localidadDescripcion }}
@@ -129,7 +140,7 @@
     </ng-container>
   </div>
 
-  <hr>
+  <hr />
   <pre>
     Estado del form: {{formGroup.valid}}
     <br>
@@ -137,7 +148,7 @@
   </pre>
 
   <pre>
-    {{formGroup.value | json }}
+    {{ formGroup.value | json }}
   </pre>
 
   <div class="button-wrapper">

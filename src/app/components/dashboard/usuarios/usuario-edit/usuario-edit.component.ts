@@ -59,9 +59,18 @@ export class UsuarioEditComponent implements OnInit {
     this.initForm();
     this.setDataForm();
     this.subscribeFormGroup();
+    this.disabledControls();
   }
 
   ngOnInit(): void {}
+
+  get localidadControl() {
+    return this.formGroup.get('direccion.localidadGeoRefDescripcion');
+  }
+
+  get provinciaControl() {
+    return this.formGroup.get('direccion.provinciaGeoRefDescripcion');
+  }
 
   get emailInvalido() {
     return (
@@ -86,6 +95,10 @@ export class UsuarioEditComponent implements OnInit {
     });
   }
 
+  disabledControls() {
+    this.localidadControl.disable({ emitEvent: false });
+  }
+
   subscribeFormGroup() {
     this.formGroup.get('telefono')?.valueChanges.subscribe((val) => {
       const formattedPhoneNumber = this.formatPhoneNumberPipe.transform(val);
@@ -101,11 +114,12 @@ export class UsuarioEditComponent implements OnInit {
         this.filterProvincias(val);
       });
 
-    this.formGroup
-      .get('direccion.localidadGeoRefDescripcion')
-      .valueChanges.subscribe((val) => {
-        this.filterLocalidades(val);
-      });
+    this.localidadControl.valueChanges.subscribe((val) => {
+      if (val == '' || val == null) {
+        return;
+      }
+      this.filterLocalidades(val);
+    });
   }
 
   filterProvincias(val: string) {
@@ -207,17 +221,22 @@ export class UsuarioEditComponent implements OnInit {
   // }
   //------------------------------------------------------Api Geo Ref Argentina----------------------------------------
 
-  onProvinciaSelected(provincia: any){
-    this.formGroup.get('direccion.localidadGeoRefDescripcion').setValue(null);
-    this.provinciaSelected = this.provincias.filter((x: any) => x.nombre === provincia);
-    this.getLocalidades(this.provinciaSelected[0].id);
-    this.provinciaIsSelected = true;
-    this.getProvincias();
-    this.cdr.detectChanges();
+  onProvinciaSelected(event?: KeyboardEvent, click: boolean = false) {
+    if (event?.key === 'Enter' || click) {
+      event?.preventDefault();
+      this.provinciaSelected = this.provincias.find(
+        (provincia: any) => provincia.nombre === this.provinciaControl.value
+      );
+      this.localidadControl.enable();
+      this.localidadControl.setValue(null);
+      this.getLocalidades(this.provinciaSelected.id);
+      this.getProvincias();
+      this.cdr.detectChanges();
+    }
   }
 
-  onLocalidadSelected(){
-    this.getLocalidades(this.provinciaSelected[0].id);
+  onLocalidadSelected() {
+    this.getLocalidades(this.provinciaSelected.id);
   }
 
   onSubmit() {
