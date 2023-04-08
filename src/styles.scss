@@ -35,7 +35,7 @@ body {
 
   .mat-hint {
     color: red;
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 
@@ -120,7 +120,7 @@ body {
 
 .width-33 {
   width: 100%;
-  flex-basis: 32%;
+  flex-basis: 31%;
   flex-grow: 1;
 }
 
@@ -132,6 +132,10 @@ body {
 
 .mat-form-field-flex {
   background-color: transparent !important;
+
+}
+.mat-form-field-appearance-fill .mat-form-field-infix{
+  padding: 0.25em 0 0.45em 0 !important;
 }
 
 .mat-form-field-disabled{

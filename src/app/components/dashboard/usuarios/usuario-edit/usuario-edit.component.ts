@@ -28,6 +28,7 @@ export class UsuarioEditComponent implements OnInit {
   provinciasDescriptionFiltered: any;
 
   localidades: any;
+  localidadSelected: any;
   localidadesDescription: any;
   localidadesDescriptionFiltered: any;
 
@@ -48,11 +49,17 @@ export class UsuarioEditComponent implements OnInit {
       ? 'Agregar usuario'
       : `Editar usuario (${this.entity.username})`;
 
-    this.getProvincias();
     this.initForm();
-    this.setDataForm();
     this.subscribeFormGroup();
-    this.disabledControls();
+    if (this.isNew) {
+      this.disabledControls();
+    } else {
+      this.setDataForm();
+      if (this.entity.usuarioDomicilio.localidadGeoRefId) {
+        this.getLocalidades(this.entity.usuarioDomicilio.provinciaGeoRefId);
+      }
+    }
+    this.getProvincias();
   }
 
   ngOnInit(): void {}
@@ -69,10 +76,9 @@ export class UsuarioEditComponent implements OnInit {
     return this.formGroup.get('telefono');
   }
 
-  get emailInvalido() {
+  errorCampoRequerido(campo: string) {
     return (
-      this.formGroup.get('email')?.invalid &&
-      this.formGroup.get('email')?.touched
+      this.formGroup.get(campo).invalid && this.formGroup.get(campo).touched
     );
   }
 
@@ -84,11 +90,35 @@ export class UsuarioEditComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern(this.patternEmail)]],
       telefono: ['', [Validators.required]],
       direccion: this.fb.group({
+        usuarioId: [''],
         direccionNumero: ['', [Validators.required]],
         direccionCalle: ['', [Validators.required]],
+        codigoPostal: ['', [Validators.required]],
+        provinciaGeoRefId: [''],
         provinciaGeoRefDescripcion: ['', [Validators.required]],
+        localidadGeoRefId: [''],
         localidadGeoRefDescripcion: ['', [Validators.required]],
       }),
+    });
+  }
+
+  setDataForm() {
+    this.formGroup.reset({
+      username: this.entity.username,
+      nombre: this.entity.nombre,
+      apellido: this.entity.apellido,
+      email: this.entity.email,
+      telefono: this.formatPhoneNumberPipe.transform(this.entity.telefono),
+      direccion: {
+        usuarioId: this.entity.usuarioDomicilio.usuarioId,
+        direccionNumero: this.entity.usuarioDomicilio.direccionNumero,
+        direccionCalle: this.entity.usuarioDomicilio.direccionCalle,
+        codigoPostal: this.entity.usuarioDomicilio.codigoPostal,
+        provinciaGeoRefDescripcion:
+          this.entity.usuarioDomicilio.provinciaGeoRefDescripcion,
+        localidadGeoRefDescripcion:
+          this.entity.usuarioDomicilio.localidadGeoRefDescripcion,
+      },
     });
   }
 
@@ -98,6 +128,9 @@ export class UsuarioEditComponent implements OnInit {
 
   subscribeFormGroup() {
     this.telefonoControl.valueChanges.subscribe((val) => {
+      if (val == '' || val == null) {
+        return;
+      }
       const formattedPhoneNumber = this.formatPhoneNumberPipe.transform(val);
       this.formGroup.patchValue(
         { telefono: formattedPhoneNumber },
@@ -106,6 +139,9 @@ export class UsuarioEditComponent implements OnInit {
     });
 
     this.provinciaControl.valueChanges.subscribe((val) => {
+      if (val == '' || val == null) {
+        return;
+      }
       this.filterProvincias(val);
     });
 
@@ -141,33 +177,6 @@ export class UsuarioEditComponent implements OnInit {
     );
   }
 
-  setDataForm() {
-    // this.formGroup.reset({
-    //   username: this.entity.username,
-    //   nombre: this.entity.nombre,
-    //   apellido: this.entity.apellido,
-    //   email: this.entity.email,
-    //   telefono: this.formatPhoneNumberPipe.transform(this.entity.telefono),
-    // });
-  }
-
-  //------------------------------------------------------Api Geo Ref Argentina----------------------------------------
-  // provinciaGeoRefChange(provinciaId: any) {
-  //   this.provinciasGeoRefIsSelected = false;
-  //   this.localidadGeoRefSelected = new LocalidadGeoRefApi();
-  //   if (provinciaId != null) {
-  //     this.getProvincia(provinciaId);
-  //     this.getLocalidades(provinciaId);
-  //     this.provinciasGeoRefIsSelected = true;
-  //   }
-  // }
-
-  // localidadGeoRefChange(localidadId: any) {
-  //   if (typeof localidadId === 'string') {
-  //     this.getLocalidad(localidadId);
-  //   }
-  // }
-
   getProvincias() {
     this.geoRefApiService.getAllProvincias().subscribe((data: any) => {
       this.provincias = data.provincias;
@@ -177,23 +186,6 @@ export class UsuarioEditComponent implements OnInit {
       this.provinciasDescriptionFiltered = this.provinciasDescription;
     });
   }
-
-  // getProvincias(){
-  //   this.geoRefApiService.getAllProvincias().subscribe(res => {
-  //     this.provinciasGeoRef = res;
-  //     this.provinciasGeoRefFiltered = res;
-  //   });
-  // }
-
-  // getProvincia(provinciaId: any) {
-  //   this.geoRefApiService
-  //     .getProvinciaById(provinciaId)
-  //     .subscribe((data: any) => {
-  //       this.provinciasGeoRefIsSelected = data.provincias[0];
-  //       this.provinciasGeoRefIsSelected = true;
-  //       this.cdr.detectChanges();
-  //     });
-  // }
 
   getLocalidades(provinciaId: any) {
     this.geoRefApiService
@@ -206,15 +198,6 @@ export class UsuarioEditComponent implements OnInit {
         this.localidadesDescriptionFiltered = this.localidadesDescription;
       });
   }
-
-  // getLocalidad(localidadId: any) {
-  //   this.geoRefApiService
-  //     .getLocalidadById(localidadId)
-  //     .subscribe((data: any) => {
-  //       this.localidadGeoRefSelected = data.localidades[0];
-  //     });
-  // }
-  //------------------------------------------------------Api Geo Ref Argentina----------------------------------------
 
   onProvinciaSelected(event?: KeyboardEvent, click: boolean = false) {
     if (event?.key === 'Enter' || click) {
@@ -238,14 +221,67 @@ export class UsuarioEditComponent implements OnInit {
     const key = event.key;
     const numeric = /^[0-9]$/.test(key);
     if (!numeric) {
-      // Detiene la propagación del evento para evitar que se escriba el carácter
       event.preventDefault();
     }
   }
 
   onSubmit() {
-    console.log(this.formGroup);
-    console.log(this.isNew);
+    var formValue = this.formGroup.value;
+
+    this.provinciaSelected = this.provincias.find(
+      (provincia: any) => provincia.nombre === this.provinciaControl.value
+    );
+
+    this.localidadSelected = this.localidades.find(
+      (localidad: any) => localidad.nombre === this.localidadControl.value
+    );
+
+    if (this.formGroup.valid) {
+      if (this.isNew) {
+        var newUser = new Usuario();
+
+        newUser.id = 0;
+        newUser.username = formValue.username;
+        newUser.nombre = formValue.nombre;
+        newUser.apellido = formValue.apellido;
+        newUser.email = formValue.email;
+        newUser.telefono = formValue.telefono;
+
+        newUser.usuarioDomicilio = formValue.direccion;
+        newUser.usuarioDomicilio.usuarioId = newUser.id;
+        newUser.usuarioDomicilio.provinciaGeoRefId = this.provinciaSelected.id;
+        newUser.usuarioDomicilio.localidadGeoRefId = this.localidadSelected.id;
+        newUser.usuarioDomicilio.codigoPostal =
+          +newUser.usuarioDomicilio.codigoPostal;
+
+        this.usuarioService.post(newUser).subscribe((res) => {
+          this.notificationService.showSuccessMessage(res.message);
+          this.dialogRef.close(res.entity);
+        }),
+          (error: any) => {
+            this.notificationService.showErrorMessage(error.message);
+          };
+      } else {
+        this.entity.nombre = formValue.nombre;
+        this.entity.apellido = formValue.apellido;
+        this.entity.email = formValue.email;
+        this.entity.telefono = formValue.telefono;
+
+        this.entity.usuarioDomicilio = formValue.direccion;
+        this.entity.usuarioDomicilio.provinciaGeoRefId =
+          this.provinciaSelected.id;
+        this.entity.usuarioDomicilio.localidadGeoRefId =
+          this.localidadSelected.id;
+
+        this.usuarioService.update(this.entity).subscribe((res) => {
+          this.notificationService.showSuccessMessage(res.message);
+          this.dialogRef.close(res.entity);
+        }),
+          (error: any) => {
+            this.notificationService.showErrorMessage(error.message);
+          };
+      }
+    }
   }
 
   onCancel() {

@@ -11,7 +11,7 @@
             formControlName="username"
           />
           <mat-icon matSuffix>diamond</mat-icon>
-          <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+          <!-- <mat-hint *ngIf="errorCampoRequerido()">El campo nombre es requerido.</mat-hint> -->
         </mat-form-field>
       </div>
       <div class="width-30">
@@ -19,7 +19,7 @@
           <mat-label>Nombre</mat-label>
           <input matInput placeholder="Nombre" formControlName="nombre" />
           <mat-icon matSuffix>diamond</mat-icon>
-          <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+          <mat-hint *ngIf="errorCampoRequerido('nombre')">El campo "Nombre" es requerido.</mat-hint>
         </mat-form-field>
       </div>
       <div class="width-30">
@@ -27,7 +27,7 @@
           <mat-label>Apellido</mat-label>
           <input matInput placeholder="Apellido" formControlName="apellido" />
           <mat-icon matSuffix>diamond</mat-icon>
-          <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+          <mat-hint *ngIf="errorCampoRequerido('apellido')">El campo "Apellido" es requerido.</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -38,7 +38,7 @@
           <mat-label>Email</mat-label>
           <input matInput placeholder="Email" formControlName="email" />
           <mat-icon matSuffix>diamond</mat-icon>
-          <mat-hint *ngIf="emailInvalido">Ingrese un mail valido.</mat-hint>
+          <mat-hint *ngIf="errorCampoRequerido('email')">Ingrese un mail valido.</mat-hint>
         </mat-form-field>
       </div>
       <div class="width-50">
@@ -46,48 +46,21 @@
           <mat-label>Teléfono</mat-label>
           <input
             matInput
-            maxlength="16"
+            maxlength="17"
+            minlength="17"
             placeholder="Teléfono"
             formControlName="telefono"
             (keypress)="onlyNumbers($event)"
           />
           <mat-icon matSuffix>diamond</mat-icon>
-          <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+          <mat-hint *ngIf="errorCampoRequerido('telefono')">El campo "Teléfono" es requerido.</mat-hint>
         </mat-form-field>
       </div>
     </div>
 
     <ng-container formGroupName="direccion">
       <div class="flex-container">
-        <div class="width-50">
-          <mat-form-field appearance="fill">
-            <mat-label>Calle</mat-label>
-            <input
-              matInput
-              placeholder="Calle"
-              formControlName="direccionCalle"
-            />
-            <mat-icon matSuffix>diamond</mat-icon>
-            <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
-          </mat-form-field>
-        </div>
-        <div class="width-50">
-          <mat-form-field appearance="fill">
-            <mat-label>Número</mat-label>
-            <input
-              matInput
-              placeholder="Número"
-              formControlName="direccionNumero"
-              (keypress)="onlyNumbers($event)"
-            />
-            <mat-icon matSuffix>diamond</mat-icon>
-            <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="flex-container">
-        <div class="width-50">
+        <div class="width-33">
           <mat-form-field appearance="fill">
             <mat-label>Provincia</mat-label>
             <input
@@ -110,10 +83,10 @@
                 {{ provinciaDescription }}
               </mat-option>
             </mat-autocomplete>
-            <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+            <mat-hint *ngIf="errorCampoRequerido('direccion.provinciaGeoRefDescripcion')">El campo "Provincia" es requerido.</mat-hint>
           </mat-form-field>
         </div>
-        <div class="width-50">
+        <div class="width-33">
           <mat-form-field appearance="fill">
             <mat-label>Localidad</mat-label>
             <input
@@ -135,24 +108,54 @@
                 {{ localidadDescripcion }}
               </mat-option>
             </mat-autocomplete>
-            <!-- <mat-hint *ngIf="nombreInvalido">El campo nombre es requerido.</mat-hint> -->
+            <mat-hint *ngIf="errorCampoRequerido('direccion.localidadGeoRefDescripcion')">El campo "Localidad" es requerido.</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="width-33">
+          <mat-form-field appearance="fill">
+            <mat-label>Código Postal</mat-label>
+            <input
+              matInput
+              placeholder="Código Postal"
+              formControlName="codigoPostal"
+              (keypress)="onlyNumbers($event)"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-hint *ngIf="errorCampoRequerido('direccion.codigoPostal')">El campo "Código Postal" es requerido.</mat-hint>
           </mat-form-field>
         </div>
       </div>
+
+      <div class="flex-container">
+        <div class="width-50">
+          <mat-form-field appearance="fill">
+            <mat-label>Calle</mat-label>
+            <input
+              matInput
+              placeholder="Calle"
+              formControlName="direccionCalle"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-hint *ngIf="errorCampoRequerido('direccion.direccionCalle')">El campo "Calle" es requerido.</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="width-50">
+          <mat-form-field appearance="fill">
+            <mat-label>Altura</mat-label>
+            <input
+              matInput
+              placeholder="Altura"
+              formControlName="direccionNumero"
+              (keypress)="onlyNumbers($event)"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-hint *ngIf="errorCampoRequerido('direccion.direccionNumero')">El campo "Altura" es requerido.</mat-hint>
+          </mat-form-field>
+        </div>
+        
+      </div>
     </ng-container>
   </div>
-
-  <hr />
-  <pre>
-    Estado del form: {{formGroup.valid}}
-    <br>
-    Status: {{formGroup.status}}
-  </pre>
-
-  <pre>
-    {{ formGroup.value | json }}
-  </pre>
-
   <div class="button-wrapper">
     <button
       type="button"

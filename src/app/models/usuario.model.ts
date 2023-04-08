@@ -5,15 +5,15 @@ export class Usuario {
   username: string;
   email: string;
   telefono: string;
-  domicilioId: number;
-  domicilio: Domicilio;
-  fechaCreacion: Date;
+  usuarioDomicilio: UsuarioDomicilio;
 }
 
-export class Domicilio {
+export class UsuarioDomicilio {
   id: number;
+  usuarioId: number;
   direccionNumero: string;
   direccionCalle: string;
+  codigoPostal: number;
   localidadGeoRefId: number;
   localidadGeoRefDescripcion: string;
   provinciaGeoRefId: number;

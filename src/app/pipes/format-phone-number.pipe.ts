@@ -6,6 +6,9 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js';
 })
 export class FormatPhoneNumberPipe implements PipeTransform {
   transform(value: string): string {
+    if(value == null || value == undefined) {
+      return '';
+    }
     const phoneNumber = parsePhoneNumberFromString(value, 'AR');
     if (!phoneNumber) {
       return value;
