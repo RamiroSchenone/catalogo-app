@@ -1,11 +1,11 @@
-.dashboard-container {
+.home-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(100vh - 64px);
   gap: 30px;
 
-  .dashboard-card {
+  .home-card {
     height: 200px;
     width: 200px;
     border-radius: 20px;
@@ -28,7 +28,7 @@
       font-size: 20px;
     }
   }
-  .dashboard-card:hover {
+  .home-card:hover {
     -webkit-animation: slide-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     animation: slide-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }

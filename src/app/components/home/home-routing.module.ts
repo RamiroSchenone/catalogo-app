@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CarritoComponent } from './carrito/carrito.component';
 import { CatalogoComponent } from './catalogo/catalogo.component';
-import { DashboardComponent } from './dashboard.component';
+import { HomeComponent } from './home.component';
 import { MarcasComponent } from './marcas/marcas.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: CatalogoComponent },
   { path: 'marcas', component: MarcasComponent },
   { path: 'carrito', component: CarritoComponent },
   { path: 'usuarios', component: UsuariosComponent },
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DashboardRoutingModule {}
+export class HomeRoutingModule {}

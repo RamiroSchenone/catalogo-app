@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
+import { HomeRoutingModule } from './home-routing.module';
+import { HomeComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MarcasComponent } from './marcas/marcas.component';
 import { CarritoComponent } from './carrito/carrito.component';
@@ -15,7 +15,7 @@ import { UsuarioEditComponent } from './usuarios/usuario-edit/usuario-edit.compo
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    HomeComponent,
     MarcasComponent,
     CarritoComponent,
     CatalogoComponent,
@@ -26,8 +26,8 @@ import { UsuarioEditComponent } from './usuarios/usuario-edit/usuario-edit.compo
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
+    HomeRoutingModule,
     SharedModule
   ]
 })
-export class DashboardModule { }
+export class HomeModule { }

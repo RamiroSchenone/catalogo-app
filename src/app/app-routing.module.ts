@@ -3,15 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: 'home',
     loadChildren: () =>
-      import('./components/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
+      import('./components/home/home.module').then(
+        (m) => m.HomeModule
       ),
   },
 
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
 
 @NgModule({
