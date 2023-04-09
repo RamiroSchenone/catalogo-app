@@ -151,3 +151,12 @@ body {
 .mat-input-element{
   height: 20px;
 }
+
+.mat-cell {
+  font-size: 14px;
+}
+
+.mat-select-arrow-wrapper {
+  transform: translateY(-50%);
+  margin-right: 5px;
+}

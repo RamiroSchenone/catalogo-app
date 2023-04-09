@@ -1,42 +1,43 @@
 .example-card {
   max-width: 310px;
-  .img-container {
-    position: relative;
-    cursor: pointer;
+  min-width: 310px;
+  // .img-container {
+  //   position: relative;
+  //   cursor: pointer;
 
-    .hover-image {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      margin-left: -16px;
-      background-color: black;
-      opacity: 0.6;
-      width: 310px;
-      height: 30px;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  //   .hover-image {
+  //     position: absolute;
+  //     bottom: 0;
+  //     left: 0;
+  //     margin-left: -16px;
+  //     background-color: black;
+  //     opacity: 0.6;
+  //     width: 310px;
+  //     height: 30px;
+  //     z-index: 1;
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: center;
 
-      mat-icon {
-        z-index: 2;
-        color: var(--color-secondary);
-        width: 100%;
-        height: 100%;
-        font-size: 25px;
-        height: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-  }
+  //     mat-icon {
+  //       z-index: 2;
+  //       color: var(--color-secondary);
+  //       width: 100%;
+  //       height: 100%;
+  //       font-size: 25px;
+  //       height: 20px;
+  //       display: flex;
+  //       align-items: center;
+  //       justify-content: center;
+  //     }
+  //   }
+  // }
 }
 
 .mat-card-title {
   display: flex;
   justify-content: space-between;
-  font-size: 22px;
+  font-size: 23px;
 
   mat-chip {
     font-size: 11px;
@@ -86,4 +87,8 @@ mat-icon {
 
 .btn-add-cart {
   cursor: pointer;
+}
+
+.mat-card-content{
+  font-size: 12px;
 }

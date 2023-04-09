@@ -1,7 +1,8 @@
-<mat-card class="example-card" (mouseout)="fnHideHoverImage()">
-  <div class="img-container" (mouseover)="fnShowHoverImage()">
+<mat-card class="example-card">
+  <!-- <mat-card class="example-card" (mouseout)="fnHideHoverImage()"> -->
+  <div class="img-container">
+    <!-- <div class="img-container" (mouseover)="fnShowHoverImage()"> -->
     <img
-      (click)="verProducto(this.producto)"
       mat-card-image
       [src]="producto.imageURL"
     />
@@ -29,7 +30,9 @@
       </mat-chip>
     </mat-chip-list>
   </mat-card-title>
-  <mat-card-subtitle>Chimola</mat-card-subtitle>
+  <mat-card-subtitle>
+    {{ producto.marca.nombre }}
+  </mat-card-subtitle>
   <mat-card-content>
     <p>
       {{ producto.descripcion }}

@@ -13,7 +13,9 @@ export class Producto {
 }
 
 export class Medidas {
+    id: number;
     alto: number;
     ancho: number;
     profundidad: number;
+    productoId: number;
 }

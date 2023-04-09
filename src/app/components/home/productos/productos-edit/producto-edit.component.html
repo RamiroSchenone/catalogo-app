@@ -1,0 +1,143 @@
+<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h2 style="font-weight: 400">{{ title }}</h2>
+  <div class="form-group">
+    <div class="flex-container">
+      <div class="witdh-33">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Nombre" formControlName="nombre" />
+          <mat-icon matSuffix>diamond</mat-icon>
+          <mat-hint *ngIf="errorCampoRequerido('nombre')"
+            >El campo "Nombre" es requerido.</mat-hint
+          >
+        </mat-form-field>
+      </div>
+      <div class="witdh-33">
+        <mat-form-field appearance="fill">
+          <mat-label>Marca</mat-label>
+          <mat-select formControlName="marcaId" name="marcaId">
+            <mat-option *ngFor="let marca of marcas" [value]="marca.id">
+              {{ marca.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>diamond</mat-icon>
+          <mat-hint *ngIf="errorCampoRequerido('marcaId')"
+            >El campo "Marca" es requerido.</mat-hint
+          >
+        </mat-form-field>
+      </div>
+      <div class="witdh-33">
+        <mat-form-field appearance="fill">
+          <mat-label>Precio</mat-label>
+          <input
+            matInput
+            placeholder="Precio"
+            formControlName="precio"
+            (keypress)="onlyNumbers($event)"
+          />
+          <mat-icon matSuffix>diamond</mat-icon>
+          <mat-hint *ngIf="errorCampoRequerido('precio')"
+            >El campo "Precio" es requerido.</mat-hint
+          >
+        </mat-form-field>
+      </div>
+    </div>
+
+    <ng-container formGroupName="medidas">
+      <div class="flex-container">
+        <div class="width-33">
+          <mat-form-field appearance="fill">
+            <mat-label>Alto</mat-label>
+            <input
+              matInput
+              placeholder="Alto"
+              formControlName="alto"
+              (keypress)="onlyNumbers($event)"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-hint *ngIf="errorCampoRequerido('medidas.alto')"
+              >El campo "Alto" es requerido.</mat-hint
+            >
+          </mat-form-field>
+        </div>
+        <div class="width-33">
+          <mat-form-field appearance="fill">
+            <mat-label>Ancho</mat-label>
+            <input
+              matInput
+              placeholder="Ancho"
+              formControlName="ancho"
+              (keypress)="onlyNumbers($event)"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-hint *ngIf="errorCampoRequerido('medidas.ancho')"
+              >El campo "Ancho" es requerido.</mat-hint
+            >
+          </mat-form-field>
+        </div>
+        <div class="width-33">
+          <mat-form-field appearance="fill">
+            <mat-label>Profundidad</mat-label>
+            <input
+              matInput
+              placeholder="Profundidad"
+              formControlName="profundidad"
+              (keypress)="onlyNumbers($event)"
+            />
+            <mat-icon matSuffix>diamond</mat-icon>
+            <mat-hint *ngIf="errorCampoRequerido('medidas.profundidad')"
+              >El campo "Profundidad" es requerido.</mat-hint
+            >
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Imagen</mat-label>
+      <input matInput placeholder="Imagen" formControlName="imageURL" />
+      <mat-icon matSuffix>diamond</mat-icon>
+      <mat-hint *ngIf="errorCampoRequerido('imageURL')"
+        >El campo "Imagen" es requerido.</mat-hint
+      >
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Descripción</mat-label>
+
+    <textarea
+      matInput
+      placeholder="Descripción"
+      formControlName="descripcion"
+    ></textarea>
+    <mat-icon matSuffix>diamond</mat-icon>
+    <mat-hint *ngIf="errorCampoRequerido('descripcion')"
+      >El campo "Descripción" es requerido.</mat-hint
+    >
+  </mat-form-field>
+
+  <mat-checkbox formControlName="disponible"
+    >Actualmente disponible</mat-checkbox
+  >
+
+  <div class="button-wrapper">
+    <button
+      type="button"
+      mat-raised-button
+      (click)="onCancel()"
+      matTooltip="Cancelar"
+    >
+      Cancelar
+    </button>
+    <button
+      type="submit"
+      color="primary"
+      mat-raised-button
+      [disabled]="formGroup.status == 'INVALID'"
+      matTooltip="Guardar"
+    >
+      Guardar
+    </button>
+  </div>
+</form>

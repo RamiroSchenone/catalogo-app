@@ -11,7 +11,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ProductoCardComponent } from './catalogo/producto-card/producto-card.component';
 import { MarcaEditComponent } from './marcas/marca-edit/marca-edit.component';
 import { UsuarioEditComponent } from './usuarios/usuario-edit/usuario-edit.component';
-
+import { ProductosComponent } from './productos/productos.component';
+import { ProductoEditComponent } from './productos/productos-edit/producto-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { UsuarioEditComponent } from './usuarios/usuario-edit/usuario-edit.compo
     UsuariosComponent,
     ProductoCardComponent,
     MarcaEditComponent,
-    UsuarioEditComponent
+    UsuarioEditComponent,
+    ProductosComponent,
+    ProductoEditComponent
   ],
   imports: [
     CommonModule,

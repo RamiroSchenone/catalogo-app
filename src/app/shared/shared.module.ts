@@ -23,6 +23,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { TableComponent } from '../components/table/table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -31,10 +32,7 @@ import { ConfirmationDeleteComponent } from '../components/confirmation-delete/c
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
 
 @NgModule({
-  declarations: [
-    TableComponent,
-    ConfirmationDeleteComponent,
-  ],
+  declarations: [TableComponent, ConfirmationDeleteComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -62,10 +60,11 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatCheckboxModule,
   ],
   providers: [
     //Pipes
-    FormatPhoneNumberPipe
+    FormatPhoneNumberPipe,
   ],
   exports: [
     FormsModule,
@@ -92,6 +91,7 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatCheckboxModule,
 
     //Componentes compartidos
     TableComponent,

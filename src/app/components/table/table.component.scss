@@ -28,7 +28,7 @@ table {
   justify-content: space-between;
   align-items: center;
 
-  .mat-raised-button{
+  .mat-raised-button {
     height: 35px;
   }
 }
@@ -62,4 +62,18 @@ table {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.chip {
+  font-size: 12px;
+}
+
+.available {
+  background-color: #d8eece;
+  color: #388614;
+}
+
+.sold-out {
+  background-color: #eecece;
+  color: #861414;
 }

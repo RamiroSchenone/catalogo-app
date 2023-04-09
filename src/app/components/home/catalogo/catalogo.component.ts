@@ -48,6 +48,7 @@ export class CatalogoComponent implements OnInit {
     if (this.criteria == null || this.criteria == '') {
       this.productosFilteredEmpty = false;
       this.getProductos();
+      return;
     }
 
     this.productoService.search(this.criteria).subscribe(

@@ -1,10 +1,12 @@
 import {
   ChangeDetectorRef,
   Component,
+  ContentChild,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -34,6 +36,8 @@ export class TableComponent implements OnInit {
   @Output() editItem: EventEmitter<any> = new EventEmitter();
   @Output() newItem: EventEmitter<any> = new EventEmitter();
   @Output() deleteItem: EventEmitter<any> = new EventEmitter();
+
+  @ContentChild('cellTemplate') cellTemplate: TemplateRef<any>;
 
   constructor(private cdr: ChangeDetectorRef) {}
 

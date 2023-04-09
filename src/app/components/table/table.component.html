@@ -22,20 +22,70 @@
 
   <div class="mat-elevation-z8">
     <table #table mat-table [dataSource]="dataSource" matSort>
-      <!-- Agregar una columna por cada columna recibida en el input -->
       <ng-container *ngFor="let column of columns">
-        <ng-container [matColumnDef]="column.name">
-          <th
-            class="mat-primary"
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-          >
-            {{ column.label }}
-          </th>
-          <td mat-cell *matCellDef="let element" [class]="column.name">
-            {{ element[column.property] }}
-          </td>
+        <ng-container [ngSwitch]="column.name">
+          <ng-container *ngSwitchDefault>
+            <ng-container [matColumnDef]="column.name">
+              <th
+                class="mat-primary"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ column.label }}
+              </th>
+              <td mat-cell *matCellDef="let element" [class]="column.name">
+                {{ element[column.property] }}
+              </td>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'estadoStock'">
+            <ng-container [matColumnDef]="column.name">
+              <th
+                class="mat-primary"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ column.label }}
+              </th>
+              <td mat-cell *matCellDef="let element" [class]="column.name">
+                <mat-chip-list>
+                  <mat-chip
+                    [ngClass]="{
+                      available: element[column.property],
+                      'sold-out': !element[column.property],
+                      chip: true
+                    }"
+                  >
+                    <mat-chip-avatar class="chip-avatar">
+                      <mat-icon>
+                        <span class="material-symbols-filld"> task_alt </span>
+                      </mat-icon>
+                    </mat-chip-avatar>
+                    {{ element[column.property] ? "En stock" : "Agotado" }}
+                  </mat-chip>
+                </mat-chip-list>
+              </td>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'precio'">
+            <ng-container [matColumnDef]="column.name">
+              <th
+                class="mat-primary"
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ column.label }}
+              </th>
+              <td mat-cell *matCellDef="let element" [class]="column.name">
+                AR$ {{ element[column.property] }}
+              </td>
+            </ng-container>
+          </ng-container>
         </ng-container>
       </ng-container>
 
