@@ -30,9 +30,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDeleteComponent } from '../components/confirmation-delete/confirmation-delete.component';
 
 import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
+import { FileUploadComponent } from '../components/file-upload/file-upload.component';
 
 @NgModule({
-  declarations: [TableComponent, ConfirmationDeleteComponent],
+  declarations: [TableComponent, ConfirmationDeleteComponent, FileUploadComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -96,6 +97,7 @@ import { FormatPhoneNumberPipe } from '../pipes/format-phone-number.pipe';
     //Componentes compartidos
     TableComponent,
     ConfirmationDeleteComponent,
+    FileUploadComponent
   ],
 })
 export class SharedModule {}

@@ -1,0 +1,22 @@
+<input
+  id="files-input"
+  type="file"
+  [accept]="extensionAccept"
+  (change)="onFilesCharged($event)"
+  [multiple]="multiple"
+/>
+<label for="files-input" class="custom-file-upload">
+  <mat-icon>upload_file</mat-icon> {{ text }}
+</label>
+
+<!-- <ng-container *ngIf="hasImages">
+  <div class="images-container">
+    <img [src]="image.base64" *ngFor="let image in currentImages">
+  </div>
+</ng-container> -->
+
+<ng-container *ngIf="hasImages">
+  <div class="images-container">
+    <img [src]="image">
+  </div>
+</ng-container>

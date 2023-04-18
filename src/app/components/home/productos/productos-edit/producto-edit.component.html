@@ -93,31 +93,39 @@
       </div>
     </ng-container>
 
-    <mat-form-field appearance="fill">
+    <!-- <mat-form-field appearance="fill">
       <mat-label>Imagen</mat-label>
       <input matInput placeholder="Imagen" formControlName="imageURL" />
       <mat-icon matSuffix>diamond</mat-icon>
       <mat-hint *ngIf="errorCampoRequerido('imageURL')"
         >El campo "Imagen" es requerido.</mat-hint
       >
+    </mat-form-field> -->
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descripción</mat-label>
+
+      <textarea
+        matInput
+        placeholder="Descripción"
+        formControlName="descripcion"
+        style="height: auto !important;"
+        rows="5"
+      ></textarea>
+      <mat-icon matSuffix>diamond</mat-icon>
+      <mat-hint *ngIf="errorCampoRequerido('descripcion')"
+        >El campo "Descripción" es requerido.</mat-hint
+      >
     </mat-form-field>
+
+    <app-file-upload
+      text="Subir fotos"
+      [multiple]="true"
+      extensionAccept="image/*"
+    ></app-file-upload>
   </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Descripción</mat-label>
-
-    <textarea
-      matInput
-      placeholder="Descripción"
-      formControlName="descripcion"
-    ></textarea>
-    <mat-icon matSuffix>diamond</mat-icon>
-    <mat-hint *ngIf="errorCampoRequerido('descripcion')"
-      >El campo "Descripción" es requerido.</mat-hint
-    >
-  </mat-form-field>
-
-  <mat-checkbox formControlName="disponible"
+  <mat-checkbox style="margin-top: 10px" formControlName="disponible"
     >Actualmente disponible</mat-checkbox
   >
 

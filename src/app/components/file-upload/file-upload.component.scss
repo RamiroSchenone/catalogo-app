@@ -1,0 +1,22 @@
+@import "../../../theme.scss";
+
+.custom-file-upload {
+  cursor: pointer;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: 1px dashed mat-color($my-primary);
+  border-radius: 16px;
+  font-family: $custom-font;
+
+  .mat-icon{
+    color: mat-color($my-primary);
+  }
+}
+
+#files-input {
+  display: none;
+}

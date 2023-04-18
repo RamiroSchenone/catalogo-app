@@ -13,6 +13,7 @@ import { MarcaEditComponent } from './marcas/marca-edit/marca-edit.component';
 import { UsuarioEditComponent } from './usuarios/usuario-edit/usuario-edit.component';
 import { ProductosComponent } from './productos/productos.component';
 import { ProductoEditComponent } from './productos/productos-edit/producto-edit.component';
+import { ProductoViewComponent } from './catalogo/producto-view/producto-view.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductoEditComponent } from './productos/productos-edit/producto-edit.
     MarcaEditComponent,
     UsuarioEditComponent,
     ProductosComponent,
-    ProductoEditComponent
+    ProductoEditComponent,
+    ProductoViewComponent
   ],
   imports: [
     CommonModule,
