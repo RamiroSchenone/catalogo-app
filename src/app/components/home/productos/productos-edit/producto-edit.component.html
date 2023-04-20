@@ -122,12 +122,17 @@
       text="Subir fotos"
       [multiple]="true"
       extensionAccept="image/*"
+      (onUploadChange)="onUploadChange($event)"
     ></app-file-upload>
   </div>
 
   <mat-checkbox style="margin-top: 10px" formControlName="disponible"
     >Actualmente disponible</mat-checkbox
   >
+
+  <!-- <pre>
+    {{ formGroup.value | json}}
+  </pre> -->
 
   <div class="button-wrapper">
     <button

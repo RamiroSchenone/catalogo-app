@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ProductImage } from 'src/app/models/image.model';
 import { Marca } from 'src/app/models/marca.model';
 import { Producto } from 'src/app/models/producto.model';
 import { MarcaService } from 'src/app/services/marca.service';
@@ -40,7 +41,7 @@ export class ProductoEditComponent implements OnInit {
     });
 
     this.initForm();
-    if(!this.isNew){
+    if (!this.isNew) {
       this.setDataForm();
     }
   }
@@ -59,7 +60,7 @@ export class ProductoEditComponent implements OnInit {
       precio: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       disponible: [false, [Validators.required]],
-      imageURL: ['', [Validators.required]],
+      // imageURL: ['', [Validators.required]],
       marcaId: ['', [Validators.required]],
       medidas: this.fb.group({
         alto: ['', [Validators.required]],
@@ -67,6 +68,7 @@ export class ProductoEditComponent implements OnInit {
         profundidad: ['', [Validators.required]],
         productoId: [0],
       }),
+      imagenesProducto: this.fb.array([], [Validators.required]),
     });
   }
 
@@ -74,15 +76,17 @@ export class ProductoEditComponent implements OnInit {
     this.formGroup.reset({
       id: this.entity.id,
       nombre: this.entity.nombre,
-      precio: this.entity.precio.toString().replace(".", ","),
+      precio: this.entity.precio.toString().replace('.', ','),
       descripcion: this.entity.descripcion,
       disponible: this.entity.disponible,
-      imageURL: this.entity.imageURL,
+      // imageURL: this.entity.imageURL,
       marcaId: this.entity.marcaId,
       medidas: {
-        alto: this.entity.medidas.alto.toString().replace(".", ","),
-        ancho: this.entity.medidas.ancho.toString().replace(".", ","),
-        profundidad: this.entity.medidas.profundidad.toString().replace(".", ","),
+        alto: this.entity.medidas.alto.toString().replace('.', ','),
+        ancho: this.entity.medidas.ancho.toString().replace('.', ','),
+        profundidad: this.entity.medidas.profundidad
+          .toString()
+          .replace('.', ','),
         productoId: this.entity.medidas.productoId,
       },
     });
@@ -104,10 +108,16 @@ export class ProductoEditComponent implements OnInit {
         var newProduct = new Producto();
 
         newProduct = formValue;
-        newProduct.precio = +newProduct.precio.toString().replace(",", ".");
-        newProduct.medidas.alto = +newProduct.medidas.alto.toString().replace(",", ".");
-        newProduct.medidas.ancho = +newProduct.medidas.ancho.toString().replace(",", ".");
-        newProduct.medidas.profundidad = +newProduct.medidas.profundidad.toString().replace(",", ".");
+        newProduct.precio = +newProduct.precio.toString().replace(',', '.');
+        newProduct.medidas.alto = +newProduct.medidas.alto
+          .toString()
+          .replace(',', '.');
+        newProduct.medidas.ancho = +newProduct.medidas.ancho
+          .toString()
+          .replace(',', '.');
+        newProduct.medidas.profundidad = +newProduct.medidas.profundidad
+          .toString()
+          .replace(',', '.');
 
         this.productoService.post(newProduct).subscribe((res) => {
           this.notificationService.showSuccessMessage(res.message);
@@ -118,10 +128,16 @@ export class ProductoEditComponent implements OnInit {
           };
       } else {
         this.entity = formValue;
-        this.entity.precio = +this.entity.precio.toString().replace(",", ".");
-        this.entity.medidas.alto = +this.entity.medidas.alto.toString().replace(",", ".");
-        this.entity.medidas.ancho = +this.entity.medidas.ancho.toString().replace(",", ".");
-        this.entity.medidas.profundidad = +this.entity.medidas.profundidad.toString().replace(",", ".");
+        this.entity.precio = +this.entity.precio.toString().replace(',', '.');
+        this.entity.medidas.alto = +this.entity.medidas.alto
+          .toString()
+          .replace(',', '.');
+        this.entity.medidas.ancho = +this.entity.medidas.ancho
+          .toString()
+          .replace(',', '.');
+        this.entity.medidas.profundidad = +this.entity.medidas.profundidad
+          .toString()
+          .replace(',', '.');
 
         this.productoService.update(this.entity).subscribe((res) => {
           this.notificationService.showSuccessMessage(res.message);
@@ -136,5 +152,15 @@ export class ProductoEditComponent implements OnInit {
 
   onCancel() {
     this.dialogRef.close();
+  }
+
+  onUploadChange(currentImages: any) {
+    const control = this.formGroup.get('imagenesProducto') as FormArray;
+    control.clear();
+    currentImages.forEach((image: any) => {
+      console.log(image);
+      control.push(this.fb.control(image)); // Agrega un nuevo FormControl para cada imagen cargada
+    });
+    control.markAsDirty();
   }
 }

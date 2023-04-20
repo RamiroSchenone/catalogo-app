@@ -7,7 +7,7 @@
     [multiple]="multiple"
   />
   <label for="files-input" class="custom-file-upload">
-    {{ text }} (máx. 4)<mat-icon>upload_file</mat-icon> 
+    {{ text }} (máx. 4)<mat-icon>upload_file</mat-icon>
   </label>
 </ng-container>
 
@@ -23,6 +23,8 @@
       <mat-card
         [ngClass]="{
           'example-card': true,
+          'scale-in-center': true,
+          'scale-out-center': image.onDeleted,
           isFavorite: image.isFavorite,
           isNotFavorite: image.isNotFavorite
         }"
@@ -35,7 +37,13 @@
           <mat-icon (click)="onDelete(i)" matTooltip="Eliminar"
             >delete</mat-icon
           >
-          <mat-icon class="favorite-icon" (click)="onFavorite(i)" matTooltip="Marcar como Principal"
+          <mat-icon
+            [ngClass]="{
+              'favorite-icon': true,
+              'animated-icon': image.isFavorite
+            }"
+            (click)="onFavorite(i)"
+            matTooltip="Marcar como Principal"
             >favorite</mat-icon
           >
         </mat-card-content>

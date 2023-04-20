@@ -1,6 +1,13 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Image } from 'src/app/models/image.model';
+import { ProductImage } from 'src/app/models/image.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
@@ -13,7 +20,10 @@ export class FileUploadComponent implements OnInit {
   @Input() extensionAccept: string;
   @Input() multiple: boolean = false;
 
-  currentImages: Image[] = [];
+  @Output() onUploadChange: EventEmitter<any> = new EventEmitter();
+
+  currentImages: ProductImage[] = [];
+  imagesToUpload: any[] = [];
 
   showAddImages: boolean = true;
   // image: string | ArrayBuffer;
@@ -29,22 +39,28 @@ export class FileUploadComponent implements OnInit {
     let files = (event.target as HTMLInputElement).files;
     if (files) {
       for (let i = 0; i < files.length; i++) {
-        const currenItem: Image = files.item(i);
-        const currentImage: Image = files.item(i);
+        const currenItem: ProductImage = files.item(i);
+        const currentImage: ProductImage = files.item(i);
         if (currenItem) {
           // this.fileUploadService
           //   .postFile(files.item(i) as File)
           //   .subscribe((res) => console.log(res));
+
           this.fileUploadService
             .getBase64ByImage(currenItem)
             .subscribe((res) => {
               currentImage.base64 = res;
               currentImage.isFavorite = false;
 
-              var existFavorite = this.currentImages.filter(x => x.isFavorite);
-              currentImage.isNotFavorite = existFavorite.length > 0 ? true : false;
+              var existFavorite = this.currentImages.filter(
+                (x) => x.isFavorite
+              );
+              currentImage.isNotFavorite =
+                existFavorite.length > 0 ? true : false;
 
               this.currentImages.push(currentImage);
+
+              this.onUploadChange.emit(this.imagesToUpload);
 
               if (this.currentImages.length < 4) {
                 this.showAddImages = true;
@@ -61,14 +77,27 @@ export class FileUploadComponent implements OnInit {
   }
 
   onDelete(index: number) {
-    this.currentImages.splice(index, 1);
-    if (this.currentImages.length <= 3) {
-      this.showAddImages = true;
-    }
+    this.currentImages[index].onDeleted = true;
+    setTimeout(() => {
+      if(this.currentImages[index].isFavorite){
+        this.currentImages.forEach(image => {
+          image.isFavorite = false;
+          image.isNotFavorite = false;
+        })
+      }
+
+      this.currentImages.splice(index, 1);
+      
+      if (this.currentImages.length <= 3) {
+        this.showAddImages = true;
+      }
+
+      this.onUploadChange.emit(this.currentImages);
+    }, 200);
   }
 
   onFavorite(index: number) {
-    const currentImage: Image = this.currentImages[index];
+    const currentImage: ProductImage = this.currentImages[index];
     currentImage.isFavorite = !currentImage.isFavorite;
 
     if (currentImage.isFavorite) {
@@ -87,5 +116,7 @@ export class FileUploadComponent implements OnInit {
         image.isNotFavorite = false;
       });
     }
+
+    this.onUploadChange.emit(this.currentImages);
   }
 }
