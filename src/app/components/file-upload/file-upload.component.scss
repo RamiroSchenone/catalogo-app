@@ -2,7 +2,7 @@
 
 .custom-file-upload {
   cursor: pointer;
-  height: 200px;
+  height: 300px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -12,11 +12,92 @@
   border-radius: 16px;
   font-family: $custom-font;
 
-  .mat-icon{
+  .mat-icon {
     color: mat-color($my-primary);
   }
 }
 
 #files-input {
   display: none;
+}
+
+.upload-with-images {
+  cursor: pointer;
+  font-size: 35px;
+  .mat-icon {
+    color: mat-color($my-primary);
+  }
+}
+
+.images-container {
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  border: 1px dashed mat-color($my-primary);
+  border-radius: 16px;
+}
+
+.example-card {
+  max-width: 150px;
+
+  .mat-card-title {
+    font-size: 12px;
+    margin-top: 6px !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mat-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .img-container {
+    width: 150px;
+    height: 150px;
+  }
+
+  .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para ajustar la imagen al contenedor sin deformarla */
+    object-position: center center; /* Para centrar la imagen en el contenedor */
+  }
+}
+
+.example-card{
+  .mat-icon {
+    background-color: transparent;
+    color: mat-color($my-primary);
+    border: transparent;
+    cursor: pointer;
+  }
+  .favorite-icon {
+    // color: mat-color($my-primary);
+    color:gray;
+    cursor: pointer;
+  }
+}
+
+.isNotFavorite {
+  .favorite-icon {
+    display: none;
+  }
+}
+
+.isFavorite {
+  .favorite-icon {
+    color: mat-color($my-primary);
+    cursor: pointer;
+  }
 }

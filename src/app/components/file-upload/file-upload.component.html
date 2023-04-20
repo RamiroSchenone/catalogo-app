@@ -1,13 +1,15 @@
-<input
-  id="files-input"
-  type="file"
-  [accept]="extensionAccept"
-  (change)="onFilesCharged($event)"
-  [multiple]="multiple"
-/>
-<label for="files-input" class="custom-file-upload">
-  <mat-icon>upload_file</mat-icon> {{ text }}
-</label>
+<ng-container *ngIf="currentImages.length == 0">
+  <input
+    id="files-input"
+    type="file"
+    [accept]="extensionAccept"
+    (change)="onFilesCharged($event)"
+    [multiple]="multiple"
+  />
+  <label for="files-input" class="custom-file-upload">
+    {{ text }} (máx. 4)<mat-icon>upload_file</mat-icon> 
+  </label>
+</ng-container>
 
 <!-- <ng-container *ngIf="hasImages">
   <div class="images-container">
@@ -15,8 +17,42 @@
   </div>
 </ng-container> -->
 
-<ng-container *ngIf="hasImages">
+<ng-container *ngIf="currentImages.length > 0">
   <div class="images-container">
-    <img [src]="image">
+    <ng-container *ngFor="let image of currentImages; let i = index">
+      <mat-card
+        [ngClass]="{
+          'example-card': true,
+          isFavorite: image.isFavorite,
+          isNotFavorite: image.isNotFavorite
+        }"
+      >
+        <div class="img-container">
+          <img mat-card-image [src]="image.base64" />
+        </div>
+        <mat-card-title> {{ image.name }} </mat-card-title>
+        <mat-card-content>
+          <mat-icon (click)="onDelete(i)" matTooltip="Eliminar"
+            >delete</mat-icon
+          >
+          <mat-icon class="favorite-icon" (click)="onFavorite(i)" matTooltip="Marcar como Principal"
+            >favorite</mat-icon
+          >
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <div *ngIf="showAddImages">
+      <input
+        id="files-input"
+        type="file"
+        [accept]="extensionAccept"
+        (change)="onFilesCharged($event)"
+        [multiple]="multiple"
+      />
+      <label for="files-input" class="upload-with-images">
+        <mat-icon>upload_file</mat-icon>
+      </label>
+    </div>
   </div>
 </ng-container>
