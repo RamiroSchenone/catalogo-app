@@ -14,7 +14,7 @@ export class FileUploadService {
 
   postFile(fileToUpload: File): Observable<any> {
     const formData = new FormData();
-    const url = this.API_URL + 'api/archivos/upload';
+    const url = this.API_URL + 'api/archivos/upload-file';
     formData.append('file', fileToUpload);
     const headers = new HttpHeaders().append(
       'Content-Disposition',

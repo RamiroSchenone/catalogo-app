@@ -87,13 +87,13 @@
   }
 }
 
-.isNotFavorite {
+.isNotFavourite {
   .favorite-icon {
     display: none;
   }
 }
 
-.isFavorite {
+.isFavourite {
   .favorite-icon {
     color: mat-color($my-primary);
     cursor: pointer;

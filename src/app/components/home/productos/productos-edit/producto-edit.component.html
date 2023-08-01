@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <ng-container formGroupName="medidas">
+    <ng-container formGroupName="productoMedidas">
       <div class="flex-container">
         <div class="width-33">
           <mat-form-field appearance="fill">
@@ -55,7 +55,7 @@
               (keypress)="onlyNumbers($event)"
             />
             <mat-icon matSuffix>diamond</mat-icon>
-            <mat-hint *ngIf="errorCampoRequerido('medidas.alto')"
+            <mat-hint *ngIf="errorCampoRequerido('productoMedidas.alto')"
               >El campo "Alto" es requerido.</mat-hint
             >
           </mat-form-field>
@@ -70,7 +70,7 @@
               (keypress)="onlyNumbers($event)"
             />
             <mat-icon matSuffix>diamond</mat-icon>
-            <mat-hint *ngIf="errorCampoRequerido('medidas.ancho')"
+            <mat-hint *ngIf="errorCampoRequerido('productoMedidas.ancho')"
               >El campo "Ancho" es requerido.</mat-hint
             >
           </mat-form-field>
@@ -85,7 +85,7 @@
               (keypress)="onlyNumbers($event)"
             />
             <mat-icon matSuffix>diamond</mat-icon>
-            <mat-hint *ngIf="errorCampoRequerido('medidas.profundidad')"
+            <mat-hint *ngIf="errorCampoRequerido('productoMedidas.profundidad')"
               >El campo "Profundidad" es requerido.</mat-hint
             >
           </mat-form-field>
@@ -130,6 +130,11 @@
     >Actualmente disponible</mat-checkbox
   >
 
+  <hr>
+  <pre>
+    {{formGroup.value | json}}
+  </pre>
+
   <!-- <pre>
     {{ formGroup.value | json}}
   </pre> -->
@@ -147,6 +152,7 @@
       type="submit"
       color="primary"
       mat-raised-button
+      (click)="onSubmit()"
       [disabled]="formGroup.status == 'INVALID'"
       matTooltip="Guardar"
     >

@@ -42,31 +42,32 @@ export class FileUploadComponent implements OnInit {
         const currenItem: ProductImage = files.item(i);
         const currentImage: ProductImage = files.item(i);
         if (currenItem) {
-          // this.fileUploadService
-          //   .postFile(files.item(i) as File)
-          //   .subscribe((res) => console.log(res));
-
           this.fileUploadService
-            .getBase64ByImage(currenItem)
+            .postFile(files.item(i) as File)
             .subscribe((res) => {
-              currentImage.base64 = res;
-              currentImage.isFavorite = false;
+              currentImage.archivoId = res.id;
+              this.fileUploadService
+                .getBase64ByImage(currenItem)
+                .subscribe((res) => {
+                  currentImage.base64 = res;
+                  currentImage.isFavourite = false;
 
-              var existFavorite = this.currentImages.filter(
-                (x) => x.isFavorite
-              );
-              currentImage.isNotFavorite =
-                existFavorite.length > 0 ? true : false;
+                  var existFavourite = this.currentImages.filter(
+                    (x) => x.isFavourite
+                  );
+                  currentImage.isNotFavourite =
+                    existFavourite.length > 0 ? true : false;
 
-              this.currentImages.push(currentImage);
+                  this.currentImages.push(currentImage);
 
-              this.onUploadChange.emit(this.imagesToUpload);
+                  this.onUploadChange.emit(this.currentImages);
 
-              if (this.currentImages.length < 4) {
-                this.showAddImages = true;
-              } else {
-                this.showAddImages = false;
-              }
+                  if (this.currentImages.length < 4) {
+                    this.showAddImages = true;
+                  } else {
+                    this.showAddImages = false;
+                  }
+                });
             });
         }
       }
@@ -79,15 +80,15 @@ export class FileUploadComponent implements OnInit {
   onDelete(index: number) {
     this.currentImages[index].onDeleted = true;
     setTimeout(() => {
-      if(this.currentImages[index].isFavorite){
-        this.currentImages.forEach(image => {
-          image.isFavorite = false;
-          image.isNotFavorite = false;
-        })
+      if (this.currentImages[index].isFavourite) {
+        this.currentImages.forEach((image) => {
+          image.isFavourite = false;
+          image.isNotFavourite = false;
+        });
       }
 
       this.currentImages.splice(index, 1);
-      
+
       if (this.currentImages.length <= 3) {
         this.showAddImages = true;
       }
@@ -96,24 +97,24 @@ export class FileUploadComponent implements OnInit {
     }, 200);
   }
 
-  onFavorite(index: number) {
+  onFavourite(index: number) {
     const currentImage: ProductImage = this.currentImages[index];
-    currentImage.isFavorite = !currentImage.isFavorite;
+    currentImage.isFavourite = !currentImage.isFavourite;
 
-    if (currentImage.isFavorite) {
+    if (currentImage.isFavourite) {
       var otherImages = this.currentImages.filter(
-        (image) => image.isFavorite == false
+        (image) => image.isFavourite == false
       );
       otherImages.forEach((image) => {
-        image.isNotFavorite = true;
+        image.isNotFavourite = true;
       });
       this.currentImages = [];
       this.currentImages.push(currentImage);
       this.currentImages = [...this.currentImages, ...otherImages];
     } else {
       this.currentImages.forEach((image) => {
-        image.isFavorite = false;
-        image.isNotFavorite = false;
+        image.isFavourite = false;
+        image.isNotFavourite = false;
       });
     }
 

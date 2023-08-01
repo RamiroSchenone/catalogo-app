@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductImage } from 'src/app/models/image.model';
 import { Marca } from 'src/app/models/marca.model';
-import { Producto } from 'src/app/models/producto.model';
+import { Producto, ProductoImagen } from 'src/app/models/producto.model';
 import { MarcaService } from 'src/app/services/marca.service';
 import { NotificationService } from 'src/app/services/notificaciones.service';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -62,13 +62,13 @@ export class ProductoEditComponent implements OnInit {
       disponible: [false, [Validators.required]],
       // imageURL: ['', [Validators.required]],
       marcaId: ['', [Validators.required]],
-      medidas: this.fb.group({
+      productoMedidas: this.fb.group({
         alto: ['', [Validators.required]],
         ancho: ['', [Validators.required]],
         profundidad: ['', [Validators.required]],
         productoId: [0],
       }),
-      imagenesProducto: this.fb.array([], [Validators.required]),
+      productoImagenes: this.fb.array([], [Validators.required]),
     });
   }
 
@@ -81,13 +81,13 @@ export class ProductoEditComponent implements OnInit {
       disponible: this.entity.disponible,
       // imageURL: this.entity.imageURL,
       marcaId: this.entity.marcaId,
-      medidas: {
-        alto: this.entity.medidas.alto.toString().replace('.', ','),
-        ancho: this.entity.medidas.ancho.toString().replace('.', ','),
-        profundidad: this.entity.medidas.profundidad
+      productoMedidas: {
+        alto: this.entity.productoMedidas.alto.toString().replace('.', ','),
+        ancho: this.entity.productoMedidas.ancho.toString().replace('.', ','),
+        profundidad: this.entity.productoMedidas.profundidad
           .toString()
           .replace('.', ','),
-        productoId: this.entity.medidas.productoId,
+        productoId: this.entity.productoMedidas.productoId,
       },
     });
   }
@@ -109,13 +109,13 @@ export class ProductoEditComponent implements OnInit {
 
         newProduct = formValue;
         newProduct.precio = +newProduct.precio.toString().replace(',', '.');
-        newProduct.medidas.alto = +newProduct.medidas.alto
+        newProduct.productoMedidas.alto = +newProduct.productoMedidas.alto
           .toString()
           .replace(',', '.');
-        newProduct.medidas.ancho = +newProduct.medidas.ancho
+        newProduct.productoMedidas.ancho = +newProduct.productoMedidas.ancho
           .toString()
           .replace(',', '.');
-        newProduct.medidas.profundidad = +newProduct.medidas.profundidad
+        newProduct.productoMedidas.profundidad = +newProduct.productoMedidas.profundidad
           .toString()
           .replace(',', '.');
 
@@ -129,13 +129,13 @@ export class ProductoEditComponent implements OnInit {
       } else {
         this.entity = formValue;
         this.entity.precio = +this.entity.precio.toString().replace(',', '.');
-        this.entity.medidas.alto = +this.entity.medidas.alto
+        this.entity.productoMedidas.alto = +this.entity.productoMedidas.alto
           .toString()
           .replace(',', '.');
-        this.entity.medidas.ancho = +this.entity.medidas.ancho
+        this.entity.productoMedidas.ancho = +this.entity.productoMedidas.ancho
           .toString()
           .replace(',', '.');
-        this.entity.medidas.profundidad = +this.entity.medidas.profundidad
+        this.entity.productoMedidas.profundidad = +this.entity.productoMedidas.profundidad
           .toString()
           .replace(',', '.');
 
@@ -155,11 +155,18 @@ export class ProductoEditComponent implements OnInit {
   }
 
   onUploadChange(currentImages: any) {
-    const control = this.formGroup.get('imagenesProducto') as FormArray;
+    const control = this.formGroup.get('productoImagenes') as FormArray;
     control.clear();
     currentImages.forEach((image: any) => {
-      console.log(image);
-      control.push(this.fb.control(image)); // Agrega un nuevo FormControl para cada imagen cargada
+      var productoImage = new ProductoImagen();
+
+      productoImage.archivoId = image.archivoId;
+      productoImage.productoId = this.entity.id;
+      productoImage.isFavourite = image.isFavourite ? true: false;
+      productoImage.isNotFavourite = image.isNotFavourite ? true : false;
+
+      console.log(productoImage);
+      control.push(this.fb.control(productoImage)); // Agrega un nuevo FormControl para cada imagen cargada
     });
     control.markAsDirty();
   }

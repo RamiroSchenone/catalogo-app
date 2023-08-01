@@ -25,8 +25,8 @@
           'example-card': true,
           'scale-in-center': true,
           'scale-out-center': image.onDeleted,
-          isFavorite: image.isFavorite,
-          isNotFavorite: image.isNotFavorite
+          isFavourite: image.isFavourite,
+          isNotFavourite: image.isNotFavourite
         }"
       >
         <div class="img-container">
@@ -40,9 +40,9 @@
           <mat-icon
             [ngClass]="{
               'favorite-icon': true,
-              'animated-icon': image.isFavorite
+              'animated-icon': image.isFavourite
             }"
-            (click)="onFavorite(i)"
+            (click)="onFavourite(i)"
             matTooltip="Marcar como Principal"
             >favorite</mat-icon
           >
